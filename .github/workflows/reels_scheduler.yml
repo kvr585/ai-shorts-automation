@@ -37,18 +37,13 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Generate and Render Video
-        id: generate
+      - name: Generate and Render Video (Phase 1)
+        id: render
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
-          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
-          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
-          IG_USER_ID: ${{ secrets.IG_USER_ID }}
-          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
-          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
         run: |
-          python main.py
+          python main.py --render-only
 
       - name: Create GitHub Release for Direct Video Hosting
         if: success()
@@ -60,7 +55,18 @@ jobs:
           gh release create "$TAG_NAME" final_reel.mp4 --title "Reel $TAG_NAME" --notes "Automated Video Asset"
           VIDEO_URL="https://github.com/${{ github.repository }}/releases/download/$TAG_NAME/final_reel.mp4"
           echo "VIDEO_URL=$VIDEO_URL" >> $GITHUB_ENV
-          echo "Direct Video URL: $VIDEO_URL"
+          echo "Direct Public Video URL: $VIDEO_URL"
+
+      - name: Publish to Social Platforms (Phase 2)
+        if: success()
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
+        run: |
+          python main.py --publish-only "$VIDEO_URL"
 
       - name: Commit and Push Updated State
         if: always()
