@@ -110,16 +110,3 @@ def post_to_instagram_reels(ig_user_id: str, ig_token: str, video_url: str, titl
         "success": bool(pub_res.get("id")),
         "media_id": pub_res.get("id")
     }
-
-
-def notify_n8n_webhook(webhook_url: str, payload: dict) -> dict:
-    """
-    Sends the finished video details to the n8n webhook so n8n can immediately
-    upload to YouTube Shorts (using its existing OAuth credentials) and any other platform.
-    """
-    res = requests.post(webhook_url, json=payload, timeout=30)
-    return {
-        "platform": "n8n Webhook",
-        "status_code": res.status_code,
-        "response": res.text
-    }

@@ -12,9 +12,9 @@ from video_engine import (
 )
 from uploader import (
     post_to_facebook_reels,
-    post_to_instagram_reels,
-    notify_n8n_webhook
+    post_to_instagram_reels
 )
+from youtube_uploader import upload_youtube_short
 
 
 def load_state(state_file: str) -> dict:
@@ -148,7 +148,6 @@ def publish_phase(base_dir: str, video_url: str):
     ig_token = os.environ.get(
         "IG_ACCESS_TOKEN"
     ) or "IGAAZAaSgZAv4SpBZAGFkd2pZAXzVqYTZAGYnZANNU5JWlF1VUFyeGVzWndVdnhyQV9rbGVDUWlnSXhHOThEUjctTl9CT25vSXNIMnhFeGNtVTV0RU5pcTMyeGp5X1FMVGZAnMWx1ZAlRiSlBjZAHBkdEt3QzhGZA0pB"
-    n8n_webhook = os.environ.get("N8N_WEBHOOK_URL") or "https://veerabhadhra.app.n8n.cloud/webhook/publish-rendered-reel"
 
     # 1. Direct Facebook Page Reels Upload
     if fb_page_id and fb_token and os.path.exists(local_video):
@@ -168,22 +167,28 @@ def publish_phase(base_dir: str, video_url: str):
         except Exception as e:
             print(f"  Instagram Upload Error: {e}")
 
-    # 3. Notify n8n Webhook for YouTube Shorts Upload
-    if n8n_webhook and video_url:
+    # 3. Direct YouTube Shorts Upload
+    yt_client_id = os.environ.get("YOUTUBE_CLIENT_ID") or "53102647410-rmlfl4q59p7vthc64fieufmh8vqdic2d.apps.googleusercontent.com"
+    yt_client_secret = os.environ.get("YOUTUBE_CLIENT_SECRET") or "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"
+    yt_refresh_token = os.environ.get("YOUTUBE_REFRESH_TOKEN", "")
+
+    if not yt_refresh_token:
+        yt_token_file = os.path.join(base_dir, "youtube_token.json")
+        if os.path.exists(yt_token_file):
+            try:
+                with open(yt_token_file, "r") as f:
+                    yt_data = json.load(f)
+                    yt_refresh_token = yt_data.get("refresh_token", "")
+            except Exception:
+                pass
+
+    if yt_refresh_token and os.path.exists(local_video):
         try:
-            print("\n[3] Triggering n8n Webhook for YouTube Shorts upload...")
-            payload = {
-                "video_url": video_url,
-                "title": title,
-                "description": description,
-                "topic": topic,
-                "part": part,
-                "badge": badge
-            }
-            n8n_res = notify_n8n_webhook(n8n_webhook, payload)
-            print("  n8n Webhook Result:", n8n_res)
+            print("\n[3] Uploading directly to YouTube Shorts...")
+            yt_res = upload_youtube_short(local_video, title, description, yt_client_id, yt_client_secret, yt_refresh_token)
+            print("  YouTube Shorts Result:", yt_res)
         except Exception as e:
-            print(f"  n8n Webhook Error: {e}")
+            print(f"  YouTube Upload Error: {e}")
 
     print("\n" + "=" * 60)
     print("🎉 PUBLISHING PHASE COMPLETED!")
