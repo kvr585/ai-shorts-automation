@@ -1,6 +1,11 @@
 name: Automated AI Reels & Shorts Publisher
 
 on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'state.json'
+      - 'README.md'
   schedule:
     # 03:30 UTC = 9:00 AM IST
     # 08:30 UTC = 2:00 PM IST
@@ -27,10 +32,8 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
 
-      - name: Install System Dependencies (FFmpeg)
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y ffmpeg
+      - name: Verify FFmpeg Pre-installed
+        run: ffmpeg -version
 
       - name: Install Python Dependencies
         run: |
