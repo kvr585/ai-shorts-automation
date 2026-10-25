@@ -39,8 +39,8 @@ def render_phase(base_dir: str):
     meta_file = os.path.join(base_dir, "metadata.json")
     os.makedirs(work_dir, exist_ok=True)
 
-    gemini_key = os.environ.get("GEMINI_API_KEY", "AQ.Ab8RN6I04_L_V15FCx_ja18_-KvLZ0jbJDmmW8pI9hJcn2fRBA")
-    pixabay_key = os.environ.get("PIXABAY_API_KEY", "58207319-b9e3d9a735144933718a8ea91")
+    gemini_key = os.environ.get("GEMINI_API_KEY") or "AQ.Ab8RN6I04_L_V15FCx_ja18_-KvLZ0jbJDmmW8pI9hJcn2fRBA"
+    pixabay_key = os.environ.get("PIXABAY_API_KEY") or "58207319-b9e3d9a735144933718a8ea91"
 
     state = load_state(state_file)
     pending_p2 = state.get("pending_part_2")
@@ -140,17 +140,15 @@ def publish_phase(base_dir: str, video_url: str):
     part = meta["part"]
     badge = meta["badge"]
 
-    fb_page_id = os.environ.get("FB_PAGE_ID", "1440617492457272")
+    fb_page_id = os.environ.get("FB_PAGE_ID") or "1440617492457272"
     fb_token = os.environ.get(
-        "FB_PAGE_TOKEN",
-        "EAAQQKJgvpssBS32M4feMABMng9AzLuo6mBxDskh1ZBGeI3Itj7SpWqqP7nxW4gZBtSXNxPNR5N8zhBui5kM3oCgNXLTGlYdlw3dAHQvvE3dAJOOrJS80HuzNlNFiXtJbKap9F6Bs2MHcojRXlkBDQhiSCwD9V0XtWqutQ6ZC9Lr4BcWeXxr1996u4sngf2rZCzNl"
-    )
-    ig_user_id = os.environ.get("IG_USER_ID", "28802795232755143")
+        "FB_PAGE_TOKEN"
+    ) or "EAAQQKJgvpssBS32M4feMABMng9AzLuo6mBxDskh1ZBGeI3Itj7SpWqqP7nxW4gZBtSXNxPNR5N8zhBui5kM3oCgNXLTGlYdlw3dAHQvvE3dAJOOrJS80HuzNlNFiXtJbKap9F6Bs2MHcojRXlkBDQhiSCwD9V0XtWqutQ6ZC9Lr4BcWeXxr1996u4sngf2rZCzNl"
+    ig_user_id = os.environ.get("IG_USER_ID") or "28802795232755143"
     ig_token = os.environ.get(
-        "IG_ACCESS_TOKEN",
-        "IGAAZAaSgZAv4SpBZAGFkd2pZAXzVqYTZAGYnZANNU5JWlF1VUFyeGVzWndVdnhyQV9rbGVDUWlnSXhHOThEUjctTl9CT25vSXNIMnhFeGNtVTV0RU5pcTMyeGp5X1FMVGZAnMWx1ZAlRiSlBjZAHBkdEt3QzhGZA0pB"
-    )
-    n8n_webhook = os.environ.get("N8N_WEBHOOK_URL", "https://veerabhadhra.app.n8n.cloud/webhook/publish-rendered-reel")
+        "IG_ACCESS_TOKEN"
+    ) or "IGAAZAaSgZAv4SpBZAGFkd2pZAXzVqYTZAGYnZANNU5JWlF1VUFyeGVzWndVdnhyQV9rbGVDUWlnSXhHOThEUjctTl9CT25vSXNIMnhFeGNtVTV0RU5pcTMyeGp5X1FMVGZAnMWx1ZAlRiSlBjZAHBkdEt3QzhGZA0pB"
+    n8n_webhook = os.environ.get("N8N_WEBHOOK_URL") or "https://veerabhadhra.app.n8n.cloud/webhook/publish-rendered-reel"
 
     # 1. Direct Facebook Page Reels Upload
     if fb_page_id and fb_token and os.path.exists(local_video):
