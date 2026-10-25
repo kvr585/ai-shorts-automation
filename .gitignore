@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.pyc
+temp_workspace/
+*.mp4
+*.mp3
+concat_list.txt
+*.log
+
+# Legacy local experiment files
+AI*.json
+current_remote_workflow.json
+exec*.json
+payload.json
+add_*.py
+apply_*.py
+clear_*.py
+enable_*.py
+fix_*.py
+inspect_*.py
+run_*.py
+test_*.py
+test_*.js

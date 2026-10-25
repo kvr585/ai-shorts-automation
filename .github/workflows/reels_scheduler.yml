@@ -1,0 +1,71 @@
+name: Automated AI Reels & Shorts Publisher
+
+on:
+  schedule:
+    # 03:30 UTC = 9:00 AM IST
+    # 08:30 UTC = 2:00 PM IST
+    # 15:30 UTC = 9:00 PM IST
+    - cron: '30 3,8,15 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install System Dependencies (FFmpeg)
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ffmpeg
+
+      - name: Install Python Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate and Render Video
+        id: generate
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
+        run: |
+          python main.py
+
+      - name: Create GitHub Release for Direct Video Hosting
+        if: success()
+        id: release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG_NAME="reel-$(date +'%Y%m%d-%H%M%S')"
+          gh release create "$TAG_NAME" final_reel.mp4 --title "Reel $TAG_NAME" --notes "Automated Video Asset"
+          VIDEO_URL="https://github.com/${{ github.repository }}/releases/download/$TAG_NAME/final_reel.mp4"
+          echo "VIDEO_URL=$VIDEO_URL" >> $GITHUB_ENV
+          echo "Direct Video URL: $VIDEO_URL"
+
+      - name: Commit and Push Updated State
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update topic queue & history [skip ci]" && git push)
