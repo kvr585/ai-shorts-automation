@@ -82,8 +82,10 @@ def render_phase(base_dir: str):
     srt_path = os.path.join(work_dir, "subtitles.srt")
     ass_path = os.path.join(work_dir, "subtitles.ass")
 
+    words_count = len(script.split())
+    estimated_duration = max(48.0, min(56.0, words_count / 2.4))
     generate_voiceover(script, audio_path, srt_path, voice="en-US-ChristopherNeural")
-    srt_to_ass(srt_path, ass_path)
+    srt_to_ass(srt_path, ass_path, badge_text=badge, duration_sec=estimated_duration)
 
     # 2. Pixabay B-Roll
     print("\n[STEP 3] Downloading Pixabay Vertical Clips...")
@@ -93,7 +95,7 @@ def render_phase(base_dir: str):
     # 3. FFmpeg Assembly
     print("\n[STEP 4] Rendering Vertical Video via FFmpeg...")
     output_video = os.path.join(base_dir, "final_reel.mp4")
-    render_video(clips, audio_path, ass_path, badge, output_video)
+    render_video(clips, audio_path, ass_path, output_video, script_words=words_count)
     file_size_mb = os.path.getsize(output_video) / (1024 * 1024)
     print(f"  Render finished: {output_video} ({file_size_mb:.2f} MB)")
 

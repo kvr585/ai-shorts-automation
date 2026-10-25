@@ -107,14 +107,11 @@ def generate_voiceover(text: str, audio_path: str, srt_path: str, voice: str = "
     asyncio.run(_generate_voiceover_async(text, audio_path, srt_path, voice))
 
 
-def srt_to_ass(srt_path: str, ass_path: str):
+def srt_to_ass(srt_path: str, ass_path: str, badge_text: str = "PART 1 OF 2", duration_sec: float = 55.0):
     """
-    Converts standard SRT into stylish, high-impact vertical short subtitles (.ass format)
-    formatted like MrBeast / Hormozi reels:
-    - Bold uppercase text
-    - Heavy black outline for crisp readability over any background
-    - Yellow accent (#FFE81F)
-    - Positioned at lower-middle screen (above platform UI elements)
+    Converts standard SRT into stylish vertical short subtitles (.ass format):
+    - Top Episode Badge pill (Alignment=8, Top-Center)
+    - Bold uppercase spoken text with yellow highlight (#FFE81F) and black outline (Alignment=2, Bottom-Center)
     """
     with open(srt_path, "r", encoding="utf-8") as f:
         srt_text = f.read()
@@ -122,13 +119,19 @@ def srt_to_ass(srt_path: str, ass_path: str):
     blocks = re.split(r"\n\s*\n", srt_text.strip())
     dialogue_lines = []
 
+    # 1. Permanent Top Badge
+    end_badge_m = int(duration_sec // 60)
+    end_badge_s = duration_sec % 60
+    end_badge = f"0:{end_badge_m:02d}:{end_badge_s:05.2f}"
+    dialogue_lines.append(f"Dialogue: 0,0:00:00.00,{end_badge},BadgeStyle,,0,0,0,,{badge_text}")
+
+    # 2. Spoken Karaoke Subtitles
     for block in blocks:
         lines = block.strip().split("\n")
         if len(lines) >= 3:
             time_match = re.search(r"(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})", lines[1])
             if time_match:
                 start_str, end_str = time_match.groups()
-                # Convert 00:00:01,234 to 0:00:01.23
                 start_ass = start_str[:-1].replace(",", ".")
                 if start_ass.startswith("00:"):
                     start_ass = "0:" + start_ass[3:]
@@ -137,15 +140,11 @@ def srt_to_ass(srt_path: str, ass_path: str):
                     end_ass = "0:" + end_ass[3:]
 
                 spoken_text = " ".join(lines[2:]).strip().upper()
-                # Break long sentences into short punchy lines (max 4-5 words per line)
                 words = spoken_text.split()
                 chunk_size = 4
                 for i in range(0, len(words), chunk_size):
                     chunk = " ".join(words[i:i + chunk_size])
-                    # Interpolate timestamps for chunks
-                    chunk_start = start_ass
-                    chunk_end = end_ass
-                    dialogue_lines.append(f"Dialogue: 0,{chunk_start},{chunk_end},ReelsStyle,,0,0,0,,{chunk}")
+                    dialogue_lines.append(f"Dialogue: 1,{start_ass},{end_ass},ReelsStyle,,0,0,0,,{chunk}")
 
     ass_header = """[Script Info]
 ScriptType: v4.00+
@@ -155,6 +154,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: BadgeStyle,Arial,32,&H00FFFFFF,&H000000FF,&H00000000,&HA0000000,-1,0,0,0,100,100,0,0,1,5,3,8,30,30,110,1
 Style: ReelsStyle,Arial,48,&H001FE8FF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,5,3,2,30,30,380,1
 
 [Events]
@@ -165,9 +165,6 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
 
 def fetch_pixabay_clips(keywords: list, pixabay_key: str, output_dir: str, target_count: int = 7) -> list:
-    """
-    Fetches vertical Full HD video clips from Pixabay based on scene keywords.
-    """
     os.makedirs(output_dir, exist_ok=True)
     downloaded_clips = []
 
@@ -199,7 +196,6 @@ def fetch_pixabay_clips(keywords: list, pixabay_key: str, output_dir: str, targe
         except Exception as e:
             print(f"Error fetching clip for keyword '{kw}': {e}")
 
-    # Fill remaining with fallbacks if needed
     for i, fb_url in enumerate(fallback_urls):
         if len(downloaded_clips) >= target_count:
             break
@@ -215,32 +211,29 @@ def fetch_pixabay_clips(keywords: list, pixabay_key: str, output_dir: str, targe
     return downloaded_clips
 
 
-def get_media_duration(file_path: str) -> float:
-    """Uses ffprobe to get exact duration in seconds."""
+def get_media_duration(file_path: str, script_words: int = 125) -> float:
     cmd = [
         "ffprobe", "-v", "error", "-show_entries", "format=duration",
         "-of", "default=noprint_wrappers=1:nokey=1", file_path
     ]
     try:
         out = subprocess.check_output(cmd).decode().strip()
-        return float(out)
+        val = float(out)
+        if val > 5.0:
+            return val
     except Exception:
-        return 50.0
+        pass
+    # Estimated speech duration fallback
+    return max(48.0, min(56.0, script_words / 2.4))
 
 
-def render_video(clips: list, audio_path: str, ass_path: str, badge_text: str, output_path: str):
+def render_video(clips: list, audio_path: str, ass_path: str, output_path: str, script_words: int = 125):
     """
-    Renders the complete short-form video via FFmpeg:
-    - Scales and centers vertical 720x1280 clips
-    - Loops clips to match exact voiceover duration
-    - Burns high-impact animated subtitles
-    - Adds top episode badge pill
-    - Mixes audio cleanly
+    Renders vertical 720x1280 MP4 using FFmpeg and libass.
     """
-    audio_duration = get_media_duration(audio_path)
+    audio_duration = get_media_duration(audio_path, script_words)
     clip_dur = audio_duration / max(1, len(clips))
 
-    # Build concat file
     concat_list_path = os.path.join(os.path.dirname(output_path), "concat_list.txt")
     with open(concat_list_path, "w", encoding="utf-8") as f:
         for clip in clips:
@@ -251,24 +244,8 @@ def render_video(clips: list, audio_path: str, ass_path: str, badge_text: str, o
             last_clip_path = os.path.abspath(clips[-1]).replace("\\", "/")
             f.write(f"file '{last_clip_path}'\n")
 
-    # Format ASS path for FFmpeg subtitles filter
     clean_ass = os.path.abspath(ass_path).replace("\\", "/").replace(":", "\\:")
-
-    # Top episode badge filter
-    # Pill box background with white bold text
-    badge_filter = (
-        f"drawtext=text='{badge_text}':fontcolor=white:fontsize=26:"
-        f"box=1:boxcolor=black@0.75:boxborderw=10:x=(w-text_w)/2:y=h*0.08"
-    )
-
-    # Subtitles filter
-    sub_filter = f"subtitles='{clean_ass}'"
-
-    # Full video filter chain
-    vf = (
-        f"scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280,"
-        f"{badge_filter},{sub_filter}"
-    )
+    vf = f"scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280,subtitles='{clean_ass}'"
 
     cmd = [
         "ffmpeg", "-y",
