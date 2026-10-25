@@ -248,7 +248,8 @@ def render_video(clips: list, audio_path: str, ass_path: str, badge_text: str, o
             f.write(f"file '{clean_path}'\n")
             f.write(f"duration {clip_dur:.2f}\n")
         if clips:
-            f.write(f"file '{os.path.abspath(clips[-1]).replace('\\', '/')}'\n")
+            last_clip_path = os.path.abspath(clips[-1]).replace("\\", "/")
+            f.write(f"file '{last_clip_path}'\n")
 
     # Format ASS path for FFmpeg subtitles filter
     clean_ass = os.path.abspath(ass_path).replace("\\", "/").replace(":", "\\:")
