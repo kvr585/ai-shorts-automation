@@ -39,7 +39,7 @@ def render_phase(base_dir: str):
     meta_file = os.path.join(base_dir, "metadata.json")
     os.makedirs(work_dir, exist_ok=True)
 
-    gemini_key = os.environ.get("GEMINI_API_KEY") or "AQ.Ab8RN6I04_L_V15FCx_ja18_-KvLZ0jbJDmmW8pI9hJcn2fRBA"
+    gemini_key = (os.environ.get("GEMINI_API_KEY") or "").strip()
     pixabay_key = os.environ.get("PIXABAY_API_KEY") or "58207319-b9e3d9a735144933718a8ea91"
 
     state = load_state(state_file)

@@ -69,31 +69,14 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
   }}
 }}"""
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key={api_key}"
-    payload = json.dumps({"contents": [{"parts": [{"text": prompt}]}]}).encode("utf-8")
-    req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
-
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        res_data = json.loads(resp.read().decode("utf-8"))
-
-    raw_text = res_data["candidates"][0]["content"]["parts"][0]["text"].strip()
-    match = re.search(r"\{.*\}", raw_text, re.DOTALL)
-    if match:
-        try:
-            return json.loads(match.group(0))
-        except Exception:
-            pass
-
-    try:
-        return json.loads(raw_text)
-    except Exception:
-        # Fallback story if parsing fails
-        return {
+    # Curated offline mystery pool with guaranteed high retention and perfect duration
+    offline_pool = [
+        {
             "topic": "The Secret Vault of Mount Weather",
             "part1": {
                 "title": "PART 1: The Mountain That Hides a City #shorts #mystery",
                 "description": "PART 1 of 2: Deep beneath the Blue Ridge Mountains lies a classified bunker built for the end of the world. #shorts #viral #mystery",
-                "voiceover_script": "Deep inside the bedrock of Virginia's Blue Ridge Mountains lies a facility so secret the government denied its existence for decades. Mount Weather is not just a bunker; it is an entire subterranean city spanning six hundred thousand square feet, complete with its own underground hospital, television broadcast studios, and autonomous power grid. Declassified Cold War architectural diagrams reveal that this underground fortress was engineered to preserve the highest levels of military and executive command in the event of an apocalyptic nuclear exchange. But during the chaotic evacuation of September eleventh, high-ranking officials were rushed inside, only to discover something chilling hidden in the lowest sub-levels. The shocking revelation will leave you speechless. Part two reveals what was really waiting in the dark.",
+                "voiceover_script": "Deep inside the granite bedrock of Virginia lies a facility so secret the government denied its existence for decades. Mount Weather is not just an emergency bunker. It is an entire subterranean metropolis spanning six hundred thousand square feet, complete with its own underground hospital, television broadcast studios, and autonomous power grid. Declassified Cold War blueprints confirm this underground citadel was designed to shelter executive and military leadership in the event of an apocalyptic nuclear war. But during the chaotic evacuation of September eleventh, high-ranking officials were rushed inside, only to discover something chilling in the lowest sub-levels. The classified revelation will leave you stunned. Part two reveals what was really waiting in the dark.",
                 "scene_keywords": ["mountain bunker tunnel", "dark subterranean corridor", "classified military document", "glowing control room screens", "cold war bunker blast door"]
             },
             "part2": {
@@ -102,7 +85,91 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
                 "voiceover_script": "In Part 1, we explored the massive underground city of Mount Weather, but declassified memos reveal a far more terrifying reality. Mount Weather does not merely house human survivors. It operates an entirely separate, unelected shadow bureaucracy known as the Federal Relocation Arc, complete with duplicate government agencies authorized to suspend constitutional law during national crises. When investigators examined budget appropriations, they uncovered millions in untraceable funds directed into deep subterranean excavation projects that continue expanding to this day. Even more disturbing, local residents frequently report high-voltage electromagnetic surges and unmarked military convoys vanishing directly into the mountain face under the dead of night. What are they preparing for beneath the stone?",
                 "scene_keywords": ["underground bunker vault", "secret government meeting", "military convoy night", "radar terminal glowing", "apocalyptic survival bunker"]
             }
+        },
+        {
+            "topic": "The Lost Colony of Roanoke",
+            "part1": {
+                "title": "PART 1: The Island Where 115 People Vanished #shorts",
+                "description": "PART 1 of 2: In 1587, 115 English colonists vanished without a single trace. #shorts #viral #mystery",
+                "voiceover_script": "In fifteen eighty-seven, one hundred and fifteen English settlers landed on Roanoke Island to build a new world. Three years later, when their governor finally returned with supplies, the entire settlement had completely vanished. There were no signs of a struggle, no burned houses, and not a single grave. Every man, woman, and child had disappeared into thin air. The only clue left behind was a single cryptic word carved into a wooden palisade post: Croatoan. For centuries, historians insisted the colonists simply starved or integrated with local tribes. But modern ground-penetrating radar and newly discovered colonial letters have uncovered a dark secret the history books left out. Part two reveals the terrifying truth behind their disappearance.",
+                "scene_keywords": ["ancient misty forest", "abandoned wooden settlement", "carved wooden post", "foggy ocean shore ship", "dark historical documents"]
+            },
+            "part2": {
+                "title": "PART 2: The Secret Map of Roanoke #shorts #mystery",
+                "description": "PART 2 (FINALE): Invisible ink on a 400-year-old map reveals the truth of Roanoke. #shorts #viral #mystery",
+                "voiceover_script": "In Part 1, we explored the mysterious disappearance of Roanoke's one hundred and fifteen colonists, but newly analyzed British Museum artifacts have rewritten the story. When scientists examined Governor John White's original fifteen eighty-five map under specialized ultraviolet light, they discovered a hidden symbol concealed beneath two layers of paper. Covered in invisible starch ink was the exact military symbol for a secret inland fort fifty miles away from the coast. Excavations at that precise inland coordinate recently unearthed sixteenth-century English firearm rings and European ceramic fragments. But why did the English crown deliberately hide their fortress location from the world for over four centuries? What were they fleeing from on that desolate coastline?",
+                "scene_keywords": ["ancient map ultraviolet", "secret fortress ruins", "excavation artifacts", "foggy wilderness trail", "shadowy historical archive"]
+            }
+        },
+        {
+            "topic": "The Oak Island Money Pit",
+            "part1": {
+                "title": "PART 1: The Trap Built 200 Feet Underground #shorts",
+                "description": "PART 1 of 2: For two centuries, treasure hunters have died trying to breach the Money Pit. #shorts #viral #mystery",
+                "voiceover_script": "In seventeen ninety-five, three teenagers on a remote Nova Scotia island discovered an unnatural depression beneath an ancient oak tree. When they began digging, they found something impossible: a meticulously engineered shaft featuring oak platforms every ten feet, sealed with layers of charcoal, coconut fiber, and putty. At ninety feet, they unearthed a stone slab inscribed with coded symbols. But as soon as they tried to dig deeper, the entire pit flooded with ocean water. Whoever engineered the Money Pit did not just bury something valuable; they created an ingenious hydraulic booby trap fed by artificial sea-water tunnels. Part two reveals what modern sonar finally detected at two hundred feet.",
+                "scene_keywords": ["mysterious island forest", "deep excavation pit", "ancient coded stone", "underground water rush", "historical treasure map"]
+            },
+            "part2": {
+                "title": "PART 2: The Sonar Secret of Oak Island #shorts #mystery",
+                "description": "PART 2 (FINALE): High-tech deep sonar reveals what lies at the bottom of the Money Pit. #shorts #viral #mystery",
+                "voiceover_script": "In Part 1, we saw how an ingenious tidal booby trap protected the legendary Oak Island shaft for centuries. Over six men have lost their lives trying to breach its depths. But recently, heavy drilling rigs and deep seismic tomography penetrated two hundred feet through solid bedrock, and what they discovered shocked geologists worldwide. Scanners detected human bone fragments, sixteenth-century Spanish copper coins, and parchment paper containing traces of gold leaf. Even more unbelievable, bore-hole cameras captured what appears to be a vaulted wooden chamber reinforced with iron hinges. Who possessed the advanced engineering skills to construct a complex hydraulic vault centuries before modern machinery? Some secrets were never meant to surface.",
+                "scene_keywords": ["seismic scanner screen", "ancient gold coins macro", "underground flooded cavern", "iron hinges underwater", "mysterious ocean horizon"]
+            }
+        },
+        {
+            "topic": "The Cicada 3301 Mystery",
+            "part1": {
+                "title": "PART 1: The Internet's Most Dangerous Puzzle #shorts",
+                "description": "PART 1 of 2: In 2012, an anonymous puzzle appeared online that terrified intelligence agencies. #shorts #viral #mystery",
+                "voiceover_script": "On January fourth, twenty twelve, a cryptic black-and-white image appeared on an anonymous web forum. The text read: Hello. We are looking for highly intelligent individuals. To find them, we have devised a test. There is a message hidden in this image. What began as a curiosity quickly morphed into the most complex global scavenger hunt in history. To solve it, participants needed mastery over classical cryptography, Anglo-Saxon runes, Mayan numerology, and high-level quantum computing mathematics. But when the clues suddenly shifted from computer screens to physical telephone poles across five continents, the world realized this was not a game. Part two reveals what happened to those who solved it.",
+                "scene_keywords": ["cryptic matrix code", "cicada insect neon", "dark server room glowing", "physical street coordinates", "mysterious shadowy hacker"]
+            },
+            "part2": {
+                "title": "PART 2: Who Was Behind Cicada 3301? #shorts #mystery",
+                "description": "PART 2 (FINALE): The chilling fate of the hackers who reached the final room of Cicada 3301. #shorts #viral #mystery",
+                "voiceover_script": "In Part 1, we examined the global cryptographic gauntlet known as Cicada 3301. Only a tiny fraction of the world's most elite hackers managed to decipher the coordinates scattered across Paris, Seoul, and Sydney. Those who completed the final step were directed to a private dark-web portal. A final message appeared: We want the best, not the followers. The door then closed forever. Decades later, a few winners broke their non-disclosure agreements. They revealed that Cicada was an ultra-secret collective developing uncrackable privacy algorithms and anti-censorship software, suspected by analysts to be operated by a rogue intelligence agency or military cyber command. The organizers vanished without a trace, leaving behind only their winged digital insignia.",
+                "scene_keywords": ["dark web terminal screen", "global digital network map", "secret cyber headquarters", "encryption cipher breaking", "mysterious neon emblem"]
+            }
         }
+    ]
+
+    # Attempt dynamic AI generation via Gemini Flash Lite if API key is provided and not expired
+    if api_key and not api_key.startswith("AQ."):
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key={api_key}"
+            payload = json.dumps({"contents": [{"parts": [{"text": prompt}]}]}).encode("utf-8")
+            req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
+
+            with urllib.request.urlopen(req, timeout=25) as resp:
+                res_data = json.loads(resp.read().decode("utf-8"))
+
+            raw_text = res_data["candidates"][0]["content"]["parts"][0]["text"].strip()
+            match = re.search(r"\{.*\}", raw_text, re.DOTALL)
+            parsed = None
+            if match:
+                try:
+                    parsed = json.loads(match.group(0))
+                except Exception:
+                    pass
+            if not parsed:
+                parsed = json.loads(raw_text)
+
+            if parsed and "part1" in parsed and "part2" in parsed:
+                print(f"[SUCCESS] Gemini Flash Lite generated new story: '{parsed.get('topic')}'")
+                return parsed
+        except Exception as err:
+            print(f"[WARN] Gemini API call failed ({err}). Falling back to curated offline mystery pool.")
+    else:
+        print("[INFO] No external Gemini API key provided. Selecting fresh story from curated pool.")
+
+    # Select the first topic in the curated pool that has not yet been covered
+    for story in offline_pool:
+        if story["topic"] not in past_topics:
+            print(f"[POOL] Selected fresh mystery from curated pool: '{story['topic']}'")
+            return story
+
+    # If all curated topics were exhausted, return the first one
+    return offline_pool[0]
 
 
 async def _generate_voiceover_async(text: str, audio_path: str, srt_path: str, voice: str):
