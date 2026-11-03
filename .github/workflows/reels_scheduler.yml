@@ -7,10 +7,12 @@ on:
       - 'state.json'
       - 'README.md'
   schedule:
-    # 03:30 UTC = 9:00 AM IST
-    # 08:30 UTC = 2:00 PM IST
-    # 15:30 UTC = 9:00 PM IST
-    - cron: '30 3,8,15 * * *'
+    # 03:20 UTC = 8:50 AM IST (Targeting 9:00 AM)
+    - cron: '20 3 * * *'
+    # 08:20 UTC = 1:50 PM IST (Targeting 2:00 PM)
+    - cron: '20 8 * * *'
+    # 15:20 UTC = 8:50 PM IST (Targeting 9:00 PM)
+    - cron: '20 15 * * *'
   workflow_dispatch:
 
 permissions:
