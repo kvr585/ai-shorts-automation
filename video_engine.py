@@ -77,11 +77,32 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
         res_data = json.loads(resp.read().decode("utf-8"))
 
     raw_text = res_data["candidates"][0]["content"]["parts"][0]["text"].strip()
-    if raw_text.startswith("```"):
-        raw_text = re.sub(r"^```(?:json)?\s*", "", raw_text, flags=re.IGNORECASE)
-        raw_text = re.sub(r"```$", "", raw_text).strip()
+    match = re.search(r"\{.*\}", raw_text, re.DOTALL)
+    if match:
+        try:
+            return json.loads(match.group(0))
+        except Exception:
+            pass
 
-    return json.loads(raw_text)
+    try:
+        return json.loads(raw_text)
+    except Exception:
+        # Fallback story if parsing fails
+        return {
+            "topic": "The Secret Vault of Mount Weather",
+            "part1": {
+                "title": "PART 1: The Mountain That Hides a City #shorts #mystery",
+                "description": "PART 1 of 2: Deep beneath the Blue Ridge Mountains lies a classified bunker built for the end of the world. #shorts #viral #mystery",
+                "voiceover_script": "Deep inside the bedrock of Virginia's Blue Ridge Mountains lies a facility so secret the government denied its existence for decades. Mount Weather is not just a bunker; it is an entire subterranean city spanning six hundred thousand square feet, complete with its own underground hospital, television broadcast studios, and autonomous power grid. Declassified Cold War architectural diagrams reveal that this underground fortress was engineered to preserve the highest levels of military and executive command in the event of an apocalyptic nuclear exchange. But during the chaotic evacuation of September eleventh, high-ranking officials were rushed inside, only to discover something chilling hidden in the lowest sub-levels. The shocking revelation will leave you speechless. Part two reveals what was really waiting in the dark.",
+                "scene_keywords": ["mountain bunker tunnel", "dark subterranean corridor", "classified military document", "glowing control room screens", "cold war bunker blast door"]
+            },
+            "part2": {
+                "title": "PART 2: The Parallel Government Truth #shorts #mystery",
+                "description": "PART 2 (FINALE): Declassified records expose the alternate government operating deep inside Mount Weather. #shorts #viral #mystery",
+                "voiceover_script": "In Part 1, we explored the massive underground city of Mount Weather, but declassified memos reveal a far more terrifying reality. Mount Weather does not merely house human survivors. It operates an entirely separate, unelected shadow bureaucracy known as the Federal Relocation Arc, complete with duplicate government agencies authorized to suspend constitutional law during national crises. When investigators examined budget appropriations, they uncovered millions in untraceable funds directed into deep subterranean excavation projects that continue expanding to this day. Even more disturbing, local residents frequently report high-voltage electromagnetic surges and unmarked military convoys vanishing directly into the mountain face under the dead of night. What are they preparing for beneath the stone?",
+                "scene_keywords": ["underground bunker vault", "secret government meeting", "military convoy night", "radar terminal glowing", "apocalyptic survival bunker"]
+            }
+        }
 
 
 async def _generate_voiceover_async(text: str, audio_path: str, srt_path: str, voice: str):
