@@ -19,8 +19,14 @@ from youtube_uploader import upload_youtube_short
 
 def load_state(state_file: str) -> dict:
     if os.path.exists(state_file):
-        with open(state_file, "r", encoding="utf-8") as f:
-            return json.load(f)
+        try:
+            with open(state_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, dict):
+                    data.setdefault("past_topics", [])
+                    return data
+        except Exception as e:
+            print(f"[WARN] Error loading {state_file}: {e}. Initializing fresh state.")
     return {"past_topics": [], "pending_part_2": None}
 
 

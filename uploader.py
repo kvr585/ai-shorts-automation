@@ -49,6 +49,9 @@ def post_to_facebook_reels(page_id: str, page_token: str, video_path: str, title
         timeout=30
     ).json()
 
+    if "error" in finish_res:
+        raise RuntimeError(f"Facebook publish failed: {finish_res['error'].get('message', finish_res['error'])}")
+
     return {
         "platform": "Facebook Reels",
         "success": finish_res.get("success", False),
@@ -82,20 +85,28 @@ def post_to_instagram_reels(ig_user_id: str, ig_token: str, video_url: str, titl
     if not creation_id:
         raise RuntimeError(f"Failed to create Instagram container: {res}")
 
-    # Step 2: Poll container status
+    # Step 2: Poll container status with network retry
     status_url = f"https://graph.instagram.com/v21.0/{creation_id}"
-    for _ in range(20):
+    status_code = None
+    for _ in range(30):
         time.sleep(5)
-        status_res = requests.get(
-            status_url,
-            params={"fields": "status_code", "access_token": ig_token},
-            timeout=15
-        ).json()
-        status_code = status_res.get("status_code")
-        if status_code == "FINISHED":
-            break
-        elif status_code == "ERROR":
-            raise RuntimeError(f"Instagram media processing failed: {status_res}")
+        try:
+            status_res = requests.get(
+                status_url,
+                params={"fields": "status_code", "access_token": ig_token},
+                timeout=15
+            ).json()
+            status_code = status_res.get("status_code")
+            if status_code == "FINISHED":
+                break
+            elif status_code == "ERROR":
+                raise RuntimeError(f"Instagram media processing failed: {status_res}")
+        except requests.exceptions.RequestException as req_err:
+            print(f"  [Instagram] Polling network warning: {req_err}, retrying...")
+            continue
+
+    if status_code != "FINISHED":
+        raise RuntimeError(f"Instagram container did not reach FINISHED status in time (last status: {status_code})")
 
     # Step 3: Publish container
     publish_url = f"https://graph.instagram.com/v21.0/{ig_user_id}/media_publish"
@@ -104,6 +115,9 @@ def post_to_instagram_reels(ig_user_id: str, ig_token: str, video_url: str, titl
         params={"creation_id": creation_id, "access_token": ig_token},
         timeout=30
     ).json()
+
+    if "error" in pub_res:
+        raise RuntimeError(f"Instagram publish failed: {pub_res['error'].get('message', pub_res['error'])}")
 
     return {
         "platform": "Instagram Reels",

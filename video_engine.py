@@ -173,18 +173,27 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
 
 
 async def _generate_voiceover_async(text: str, audio_path: str, srt_path: str, voice: str):
-    communicate = edge_tts.Communicate(text, voice)
-    submaker = edge_tts.SubMaker()
-    with open(audio_path, "wb") as f:
-        async for chunk in communicate.stream():
-            if chunk["type"] == "audio":
-                f.write(chunk["data"])
-            elif chunk["type"] == "SentenceBoundary":
-                submaker.feed(chunk)
+    for attempt in range(3):
+        try:
+            communicate = edge_tts.Communicate(text, voice)
+            submaker = edge_tts.SubMaker()
+            with open(audio_path, "wb") as f:
+                async for chunk in communicate.stream():
+                    if chunk["type"] == "audio":
+                        f.write(chunk["data"])
+                    elif chunk["type"] == "SentenceBoundary":
+                        submaker.feed(chunk)
 
-    srt_content = submaker.get_srt() if hasattr(submaker, "get_srt") else submaker.generate_subs()
-    with open(srt_path, "w", encoding="utf-8") as f:
-        f.write(srt_content)
+            srt_content = submaker.get_srt() if hasattr(submaker, "get_srt") else submaker.generate_subs()
+            with open(srt_path, "w", encoding="utf-8") as f:
+                f.write(srt_content)
+            return
+        except Exception as err:
+            if attempt < 2:
+                print(f"  [Edge-TTS] Warning: {err}. Retrying in 3s (attempt {attempt + 2}/3)...")
+                await asyncio.sleep(3)
+            else:
+                raise err
 
 
 def generate_voiceover(text: str, audio_path: str, srt_path: str, voice: str = "en-US-ChristopherNeural"):
@@ -320,6 +329,23 @@ def render_video(clips: list, audio_path: str, ass_path: str, output_path: str, 
     Renders vertical 720x1280 MP4 using FFmpeg and libass.
     """
     audio_duration = get_media_duration(audio_path, script_words)
+
+    # Filter out empty or missing clips
+    valid_clips = [c for c in clips if os.path.exists(c) and os.path.getsize(c) > 1024]
+    if not valid_clips:
+        print("[WARN] No valid stock clips found. Generating dark cinematic background fallback.")
+        fallback_clip = os.path.join(os.path.dirname(output_path), "bg_fallback.mp4")
+        cmd_bg = [
+            "ffmpeg", "-y", "-f", "lavfi",
+            "-i", "color=c=0x0a0a14:s=720x1280:r=30",
+            "-t", f"{audio_duration:.2f}",
+            "-pix_fmt", "yuv420p",
+            fallback_clip
+        ]
+        subprocess.check_call(cmd_bg)
+        valid_clips = [fallback_clip]
+    clips = valid_clips
+
     clip_dur = audio_duration / max(1, len(clips))
 
     concat_list_path = os.path.join(os.path.dirname(output_path), "concat_list.txt")
