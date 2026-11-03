@@ -170,17 +170,7 @@ def publish_phase(base_dir: str, video_url: str):
     # 3. Direct YouTube Shorts Upload
     yt_client_id = os.environ.get("YOUTUBE_CLIENT_ID") or "53102647410-rmlfl4q59p7vthc64fieufmh8vqdic2d.apps.googleusercontent.com"
     yt_client_secret = os.environ.get("YOUTUBE_CLIENT_SECRET") or "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"
-    yt_refresh_token = os.environ.get("YOUTUBE_REFRESH_TOKEN", "")
-
-    if not yt_refresh_token:
-        yt_token_file = os.path.join(base_dir, "youtube_token.json")
-        if os.path.exists(yt_token_file):
-            try:
-                with open(yt_token_file, "r") as f:
-                    yt_data = json.load(f)
-                    yt_refresh_token = yt_data.get("refresh_token", "")
-            except Exception:
-                pass
+    yt_refresh_token = os.environ.get("YOUTUBE_REFRESH_TOKEN") or "1//0gDkudJijHs11CgYIARAAGBASNwF-L9IrbJ3cbVYNtQhY1KuR1zlJOg3XG3i8alPzVngTNXkAZTY75rERmqqlbsdP_1-5SUm7DuA"
 
     if yt_refresh_token and os.path.exists(local_video):
         try:
