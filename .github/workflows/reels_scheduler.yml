@@ -7,12 +7,10 @@ on:
       - 'state.json'
       - 'README.md'
   schedule:
-    # 03:20 UTC = 8:50 AM IST (Targeting 9:00 AM)
-    - cron: '20 3 * * *'
-    # 08:20 UTC = 1:50 PM IST (Targeting 2:00 PM)
-    - cron: '20 8 * * *'
-    # 15:20 UTC = 8:50 PM IST (Targeting 9:00 PM)
-    - cron: '20 15 * * *'
+    # 03:30 UTC = 9:00 AM IST
+    # 08:30 UTC = 2:00 PM IST
+    # 15:30 UTC = 9:00 PM IST
+    - cron: '30 3,8,15 * * *'
   workflow_dispatch:
 
 permissions:
@@ -21,7 +19,6 @@ permissions:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -41,7 +38,7 @@ jobs:
 
       - name: Install Python Dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Generate and Render Video (Phase 1)
@@ -61,7 +58,7 @@ jobs:
           TAG_NAME="reel-$(date +'%Y%m%d-%H%M%S')"
           gh release create "$TAG_NAME" final_reel.mp4 --title "Reel $TAG_NAME" --notes "Automated Video Asset"
           VIDEO_URL="https://github.com/${{ github.repository }}/releases/download/$TAG_NAME/final_reel.mp4"
-          echo "VIDEO_URL=$VIDEO_URL" >> $GITHUB_ENV
+          echo "VIDEO_URL=$VIDEO_URL" >> $GITHUB_OUTPUT
           echo "Direct Public Video URL: $VIDEO_URL"
 
       - name: Publish to Social Platforms (Phase 2)
@@ -73,7 +70,7 @@ jobs:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
         run: |
-          python main.py --publish-only "$VIDEO_URL"
+          python main.py --publish-only "${{ steps.release.outputs.VIDEO_URL }}"
 
       - name: Commit and Push Updated State
         if: always()
