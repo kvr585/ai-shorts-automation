@@ -172,16 +172,23 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
     return offline_pool[0]
 
 
+def format_ass_time(srt_time_str: str) -> str:
+    clean = srt_time_str.replace(',', '.')[:-1]
+    if clean.startswith("00:"):
+        clean = "0:" + clean[3:]
+    return clean
+
+
 async def _generate_voiceover_async(text: str, audio_path: str, srt_path: str, voice: str):
     for attempt in range(3):
         try:
-            communicate = edge_tts.Communicate(text, voice)
+            communicate = edge_tts.Communicate(text, voice, boundary="WordBoundary")
             submaker = edge_tts.SubMaker()
             with open(audio_path, "wb") as f:
                 async for chunk in communicate.stream():
                     if chunk["type"] == "audio":
                         f.write(chunk["data"])
-                    elif chunk["type"] == "SentenceBoundary":
+                    elif chunk["type"] == "WordBoundary":
                         submaker.feed(chunk)
 
             srt_content = submaker.get_srt() if hasattr(submaker, "get_srt") else submaker.generate_subs()
@@ -206,44 +213,34 @@ def generate_voiceover(text: str, audio_path: str, srt_path: str, voice: str = "
 
 def srt_to_ass(srt_path: str, ass_path: str, badge_text: str = "PART 1 OF 2", duration_sec: float = 55.0):
     """
-    Converts standard SRT into stylish vertical short subtitles (.ass format):
-    - Top Episode Badge pill (Alignment=8, Top-Center)
-    - Bold uppercase spoken text with yellow highlight (#FFE81F) and black outline (Alignment=2, Bottom-Center)
+    Converts word-level SRT into modern, viral short-form captions (.ass format):
+    - Top Episode Badge (Alignment=8, Top-Center)
+    - High-impact dynamic 2-3 words per display with bold outline and zero block clutter
     """
     with open(srt_path, "r", encoding="utf-8") as f:
         srt_text = f.read()
 
     blocks = re.split(r"\n\s*\n", srt_text.strip())
-    dialogue_lines = []
+    words_data = []
+    for b in blocks:
+        lines = b.strip().split("\n")
+        if len(lines) >= 3:
+            time_m = re.search(r"(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})", lines[1])
+            if time_m:
+                start_s, end_s = time_m.groups()
+                word = lines[2].strip()
+                if word:
+                    words_data.append({
+                        "start": format_ass_time(start_s),
+                        "end": format_ass_time(end_s),
+                        "word": word
+                    })
 
-    # 1. Permanent Top Badge
     end_badge_m = int(duration_sec // 60)
     end_badge_s = duration_sec % 60
     end_badge = f"0:{end_badge_m:02d}:{end_badge_s:05.2f}"
-    dialogue_lines.append(f"Dialogue: 0,0:00:00.00,{end_badge},BadgeStyle,,0,0,0,,{badge_text}")
 
-    # 2. Spoken Karaoke Subtitles
-    for block in blocks:
-        lines = block.strip().split("\n")
-        if len(lines) >= 3:
-            time_match = re.search(r"(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})", lines[1])
-            if time_match:
-                start_str, end_str = time_match.groups()
-                start_ass = start_str[:-1].replace(",", ".")
-                if start_ass.startswith("00:"):
-                    start_ass = "0:" + start_ass[3:]
-                end_ass = end_str[:-1].replace(",", ".")
-                if end_ass.startswith("00:"):
-                    end_ass = "0:" + end_ass[3:]
-
-                spoken_text = " ".join(lines[2:]).strip().upper()
-                words = spoken_text.split()
-                chunk_size = 4
-                for i in range(0, len(words), chunk_size):
-                    chunk = " ".join(words[i:i + chunk_size])
-                    dialogue_lines.append(f"Dialogue: 1,{start_ass},{end_ass},ReelsStyle,,0,0,0,,{chunk}")
-
-    ass_header = """[Script Info]
+    ass_header = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: 720
 PlayResY: 1280
@@ -251,14 +248,34 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: BadgeStyle,Arial,32,&H00FFFFFF,&H000000FF,&H00000000,&HA0000000,-1,0,0,0,100,100,0,0,1,5,3,8,30,30,110,1
-Style: ReelsStyle,Arial,48,&H001FE8FF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,5,3,2,30,30,380,1
+Style: BadgeStyle,DejaVu Sans,30,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,-1,0,0,0,100,100,0,0,1,3,1,8,30,30,90,1
+Style: ReelsStyle,DejaVu Sans,52,&H0000FFFF,&H000000FF,&H00000000,&H00000000,-1,0,0,0,100,100,0,0,1,4,2,2,30,30,340,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,{end_badge},BadgeStyle,,0,0,0,,{badge_text}
 """
+    dialogues = []
+    chunk_size = 3
+    if words_data:
+        for i in range(0, len(words_data), chunk_size):
+            chunk = words_data[i:i + chunk_size]
+            start_time = chunk[0]["start"]
+            end_time = chunk[-1]["end"]
+            phrase = " ".join(w["word"] for w in chunk).upper()
+            dialogues.append(f"Dialogue: 1,{start_time},{end_time},ReelsStyle,,0,0,0,,{phrase}")
+    else:
+        for b in blocks:
+            lines = b.strip().split("\n")
+            if len(lines) >= 3:
+                time_m = re.search(r"(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})", lines[1])
+                if time_m:
+                    start_s, end_s = time_m.groups()
+                    phrase = " ".join(lines[2:]).strip().upper()
+                    dialogues.append(f"Dialogue: 1,{format_ass_time(start_s)},{format_ass_time(end_s)},ReelsStyle,,0,0,0,,{phrase}")
+
     with open(ass_path, "w", encoding="utf-8") as f:
-        f.write(ass_header + "\n".join(dialogue_lines) + "\n")
+        f.write(ass_header + "\n".join(dialogues) + "\n")
 
 
 def fetch_pixabay_clips(keywords: list, pixabay_key: str, output_dir: str, target_count: int = 7) -> list:
