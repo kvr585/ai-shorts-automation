@@ -17,17 +17,5 @@
     "The Oak Island Money Pit",
     "The Cicada 3301 Mystery"
   ],
-  "pending_part_2": {
-    "title": "PART 2: Who Was Behind Cicada 3301? #shorts #mystery",
-    "description": "PART 2 (FINALE): The chilling fate of the hackers who reached the final room of Cicada 3301. #shorts #viral #mystery",
-    "voiceover_script": "In Part 1, we examined the global cryptographic gauntlet known as Cicada 3301. Only a tiny fraction of the world's most elite hackers managed to decipher the coordinates scattered across Paris, Seoul, and Sydney. Those who completed the final step were directed to a private dark-web portal. A final message appeared: We want the best, not the followers. The door then closed forever. Decades later, a few winners broke their non-disclosure agreements. They revealed that Cicada was an ultra-secret collective developing uncrackable privacy algorithms and anti-censorship software, suspected by analysts to be operated by a rogue intelligence agency or military cyber command. The organizers vanished without a trace, leaving behind only their winged digital insignia.",
-    "scene_keywords": [
-      "dark web terminal screen",
-      "global digital network map",
-      "secret cyber headquarters",
-      "encryption cipher breaking",
-      "mysterious neon emblem"
-    ],
-    "topic": "The Cicada 3301 Mystery"
-  }
+  "pending_part_2": null
 }
