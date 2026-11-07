@@ -226,7 +226,7 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
 
     # Attempt dynamic AI generation via Gemini Flash models if API key is provided
     if api_key:
-        candidate_models = ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-flash-8b"]
+        candidate_models = ["gemini-3.5-flash", "gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
         for model_name in candidate_models:
             try:
                 url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
