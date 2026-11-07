@@ -94,9 +94,9 @@ def render_phase(base_dir: str):
     srt_to_ass(srt_path, ass_path, badge_text=badge, duration_sec=estimated_duration)
 
     # 2. Pixabay B-Roll
-    print("\n[STEP 3] Downloading Pixabay Vertical Clips...")
+    print("\n[STEP 3] Downloading Pixabay Vertical Clips (15 Clips for Fast 3s Pacing)...")
     clips_dir = os.path.join(work_dir, "clips")
-    clips = fetch_pixabay_clips(keywords, pixabay_key, clips_dir, target_count=7)
+    clips = fetch_pixabay_clips(keywords, pixabay_key, clips_dir, target_count=15)
 
     # 3. FFmpeg Assembly
     print("\n[STEP 4] Rendering Vertical Video via FFmpeg...")

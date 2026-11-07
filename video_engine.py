@@ -53,7 +53,10 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
       "cinematic visual keyword 2",
       "cinematic visual keyword 3",
       "cinematic visual keyword 4",
-      "cinematic visual keyword 5"
+      "cinematic visual keyword 5",
+      "cinematic visual keyword 6",
+      "cinematic visual keyword 7",
+      "cinematic visual keyword 8"
     ]
   }},
   "part2": {{
@@ -65,7 +68,10 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
       "cinematic visual keyword 2",
       "cinematic visual keyword 3",
       "cinematic visual keyword 4",
-      "cinematic visual keyword 5"
+      "cinematic visual keyword 5",
+      "cinematic visual keyword 6",
+      "cinematic visual keyword 7",
+      "cinematic visual keyword 8"
     ]
   }}
 }}"""
@@ -387,30 +393,48 @@ Dialogue: 0,0:00:00.00,{end_badge},BadgeStyle,,0,0,0,,{badge_text}
         f.write(ass_header + "\n".join(dialogues) + "\n")
 
 
-def fetch_pixabay_clips(keywords: list, pixabay_key: str, output_dir: str, target_count: int = 7) -> list:
+def fetch_pixabay_clips(keywords: list, pixabay_key: str, output_dir: str, target_count: int = 15) -> list:
     os.makedirs(output_dir, exist_ok=True)
     downloaded_clips = []
+    seen_urls = set()
+
+    # Thematic atmospheric fallbacks to guarantee 14-16 clips even if niche terms return zero
+    backup_queries = [
+        "dark fog forest",
+        "underground bunker tunnel",
+        "radar screen terminal",
+        "storm clouds lightning",
+        "deep ocean night",
+        "secret government document",
+        "military surveillance"
+    ]
+    query_list = list(keywords) + [q for q in backup_queries if q not in keywords]
 
     fallback_urls = [
         "https://cdn.pixabay.com/video/2024/06/02/215018_large.mp4",
         "https://cdn.pixabay.com/video/2022/11/22/140111-774507949_large.mp4",
         "https://cdn.pixabay.com/video/2024/12/03/244754_large.mp4",
-        "https://cdn.pixabay.com/video/2020/08/30/48569-454825064_large.mp4"
+        "https://cdn.pixabay.com/video/2020/08/30/48569-454825064_large.mp4",
+        "https://cdn.pixabay.com/video/2023/10/19/185637-876359546_large.mp4",
+        "https://cdn.pixabay.com/video/2024/02/14/200547-913076156_large.mp4"
     ]
 
-    for kw in keywords:
+    for kw in query_list:
         if len(downloaded_clips) >= target_count:
             break
         try:
-            url = f"https://pixabay.com/api/videos/?key={pixabay_key}&q={urllib.parse.quote(str(kw))}&orientation=vertical&per_page=5"
+            url = f"https://pixabay.com/api/videos/?key={pixabay_key}&q={urllib.parse.quote(str(kw))}&orientation=vertical&per_page=6"
             res = requests.get(url, timeout=10).json()
             hits = res.get("hits", [])
-            if hits:
-                hit = hits[0]
-                v_url = (hit.get("videos", {}).get("large", {}).get("url") or
-                         hit.get("videos", {}).get("medium", {}).get("url") or
-                         hit.get("videos", {}).get("small", {}).get("url"))
-                if v_url:
+            for hit in hits[:2]:
+                if len(downloaded_clips) >= target_count:
+                    break
+                v_url = (hit.get("videos", {}).get("medium", {}).get("url") or
+                         hit.get("videos", {}).get("small", {}).get("url") or
+                         hit.get("videos", {}).get("tiny", {}).get("url") or
+                         hit.get("videos", {}).get("large", {}).get("url"))
+                if v_url and v_url not in seen_urls:
+                    seen_urls.add(v_url)
                     clip_file = os.path.join(output_dir, f"clip_{len(downloaded_clips)}.mp4")
                     r = requests.get(v_url, timeout=20)
                     with open(clip_file, "wb") as f:
@@ -422,12 +446,15 @@ def fetch_pixabay_clips(keywords: list, pixabay_key: str, output_dir: str, targe
     for i, fb_url in enumerate(fallback_urls):
         if len(downloaded_clips) >= target_count:
             break
+        if fb_url in seen_urls:
+            continue
         try:
             clip_file = os.path.join(output_dir, f"fallback_{i}.mp4")
             r = requests.get(fb_url, timeout=20)
             with open(clip_file, "wb") as f:
                 f.write(r.content)
             downloaded_clips.append(clip_file)
+            seen_urls.add(fb_url)
         except Exception:
             pass
 
@@ -452,7 +479,7 @@ def get_media_duration(file_path: str, script_words: int = 125) -> float:
 
 def render_video(clips: list, audio_path: str, ass_path: str, output_path: str, script_words: int = 125):
     """
-    Renders vertical 720x1280 MP4 using FFmpeg and libass.
+    Renders vertical 720x1280 MP4 using FFmpeg and libass with normalized 30fps cadence.
     """
     audio_duration = get_media_duration(audio_path, script_words)
 
@@ -485,7 +512,7 @@ def render_video(clips: list, audio_path: str, ass_path: str, output_path: str, 
             f.write(f"file '{last_clip_path}'\n")
 
     clean_ass = os.path.abspath(ass_path).replace("\\", "/").replace(":", "\\:")
-    vf = f"scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280,subtitles='{clean_ass}'"
+    vf = f"scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280,fps=30,subtitles='{clean_ass}'"
 
     cmd = [
         "ffmpeg", "-y",
@@ -494,6 +521,7 @@ def render_video(clips: list, audio_path: str, ass_path: str, output_path: str, 
         "-vf", vf,
         "-map", "0:v:0",
         "-map", "1:a:0",
+        "-r", "30",
         "-c:v", "libx264", "-preset", "veryfast", "-crf", "22",
         "-c:a", "aac", "-b:a", "192k",
         "-t", f"{audio_duration:.2f}",
