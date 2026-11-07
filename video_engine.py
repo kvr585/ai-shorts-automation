@@ -225,7 +225,7 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
     ]
 
     # Attempt dynamic AI generation via Gemini Flash models if API key is provided
-    if api_key and not api_key.startswith("AQ."):
+    if api_key:
         candidate_models = ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-flash-8b"]
         for model_name in candidate_models:
             try:
