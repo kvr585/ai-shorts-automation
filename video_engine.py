@@ -1,6 +1,7 @@
 import os
 import re
 import json
+import random
 import asyncio
 import urllib.request
 import urllib.parse
@@ -130,46 +131,154 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
                 "voiceover_script": "In Part 1, we examined the global cryptographic gauntlet known as Cicada 3301. Only a tiny fraction of the world's most elite hackers managed to decipher the coordinates scattered across Paris, Seoul, and Sydney. Those who completed the final step were directed to a private dark-web portal. A final message appeared: We want the best, not the followers. The door then closed forever. Decades later, a few winners broke their non-disclosure agreements. They revealed that Cicada was an ultra-secret collective developing uncrackable privacy algorithms and anti-censorship software, suspected by analysts to be operated by a rogue intelligence agency or military cyber command. The organizers vanished without a trace, leaving behind only their winged digital insignia.",
                 "scene_keywords": ["dark web terminal screen", "global digital network map", "secret cyber headquarters", "encryption cipher breaking", "mysterious neon emblem"]
             }
+        },
+        {
+            "topic": "The Mystery of the Mary Celeste",
+            "part1": {
+                "title": "PART 1: The Ghost Ship Found Untouched #shorts #mystery",
+                "description": "PART 1 of 2: In 1872, a merchant ship was discovered sailing in full breeze with not a soul onboard. #shorts #viral #mystery",
+                "voiceover_script": "In December eighteen seventy-two, a British cargo brig in the Atlantic Ocean spotted a merchant vessel drifting erratically under partial sail. When sailors boarded the Mary Celeste, they stepped into a living ghost story. The ship was fully seaworthy, with six months of fresh food, personal belongings left in cabins, and valuable industrial cargo untouched in the hold. Yet Captain Benjamin Briggs, his wife, two-year-old daughter, and seven experienced crew members had vanished into thin air. There was no sign of piracy, no blood, and no distress log. The ship's single lifeboat was missing, but why would a veteran captain abandon a sound ship in open water? Part two reveals the deadly secret hidden inside the cargo hold.",
+                "scene_keywords": ["ghost ship stormy sea", "abandoned captain cabin", "rippling ocean horizon", "empty wooden ship deck", "historical maritime archive"]
+            },
+            "part2": {
+                "title": "PART 2: The Alcohol Vapor Explosion #shorts #mystery",
+                "description": "PART 2 (FINALE): Modern forensic science finally uncovers why the Mary Celeste crew fled. #shorts #viral #mystery",
+                "voiceover_script": "In Part 1, we saw the baffling abandonment of the Mary Celeste in the open Atlantic. For over a century, theories blamed sea monsters, mutiny, or alien abductions. But modern chemical forensics and pressure chamber experiments at Oxford University uncovered a chillingly plausible explanation. The ship was transporting seventeen hundred barrels of raw denatured alcohol. Nine barrels were discovered completely empty and ruptured. Scientists proved that shifting cargo caused leaking alcohol vapors to ignite in the confined hold, triggering a sudden, deafening pressure wave without leaving scorch marks. Convinced the ship was about to explode into a fireball, the panicked captain ordered everyone into the small lifeboat on a trailing rope. When a sudden Atlantic squall snapped the line, the Mary Celeste sailed away forever.",
+                "scene_keywords": ["cargo hold barrels dark", "chemical vapor explosion", "stormy atlantic wave", "lifeboat drift ocean", "nautical antique compass"]
+            }
+        },
+        {
+            "topic": "The Voynich Manuscript",
+            "part1": {
+                "title": "PART 1: The Book No Human Can Read #shorts #mystery",
+                "description": "PART 1 of 2: A 600-year-old codex written in an alien language has baffled military codebreakers for centuries. #shorts #viral #mystery",
+                "voiceover_script": "Locked inside the vaults of Yale University sits the world's most mysterious manuscript. Carbon-dated to the early fifteenth century, the Voynich Manuscript contains two hundred and forty pages of bizarre, looping calligraphy written in an unknown alphabet that exists nowhere else on Earth. It is filled with hand-painted illustrations of impossible alien plants, zodiac constellations that do not match our night sky, and strange botanical diagrams. During the Second World War, top Allied military cryptographers who broke the German Enigma code attempted to decipher the manuscript. Every single one of them failed. Is it an ancient secret cipher, or the elaborate hallucination of a medieval alchemist? Part two reveals what artificial intelligence discovered inside the text.",
+                "scene_keywords": ["antique parchment manuscript", "strange calligraphy letters", "alien botanical drawing", "yale university dark vault", "medieval cipher code"]
+            },
+            "part2": {
+                "title": "PART 2: The AI Decoding Revelation #shorts #mystery",
+                "description": "PART 2 (FINALE): Supercomputers analyze the Voynich Manuscript and discover an impossible pattern. #shorts #viral #mystery",
+                "voiceover_script": "In Part 1, we explored the Voynich Manuscript, the uncrackable medieval codex that stumped the greatest minds in cryptography. In twenty eighteen, computer scientists fed the entire text into natural language processing supercomputers to test whether the book was simply an elaborate Renaissance hoax. The algorithms revealed something extraordinary: the text strictly obeys Zipf's Law, an intricate mathematical distribution of word frequencies found only in genuine, complex human spoken languages. The artificial intelligence identified repeating anagram patterns consistent with an ancient Hebrew dialect encoded through letter substitution. But why went to such extreme lengths to conceal its knowledge? The translated section headers repeatedly reference lost botanical pharmacology and celestial mapping, suggesting the manuscript guards forbidden scientific discoveries wiped from recorded history.",
+                "scene_keywords": ["supercomputer code matrix", "ancient hebrew scrolls", "medieval apothecary herbs", "astronomical constellation map", "cryptic glowing cipher"]
+            }
+        },
+        {
+            "topic": "The Wow! Signal",
+            "part1": {
+                "title": "PART 1: The 72-Second Alien Transmission #shorts",
+                "description": "PART 1 of 2: In 1977, a radio telescope detected a broadcast from deep space that changed astronomy forever. #shorts #viral #mystery",
+                "voiceover_script": "On August fifteenth, nineteen seventy-seven, astronomer Jerry Ehman was reviewing computer printouts from Ohio State's Big Ear radio telescope when his heart stopped. The telescope had intercepted a narrowband radio transmission coming from the constellation Sagittarius that was thirty times louder than the ambient radiation of deep space. It beamed directly on the one thousand four hundred and twenty megahertz hydrogen frequency, the precise cosmic channel scientists predicted an advanced alien civilization would use to communicate across interstellar space. Stunned by the signal's unnatural perfection, Ehman circled the six alphanumeric characters on the paper and wrote a single word: Wow. But when astronomers pointed their arrays back at the exact celestial coordinates, something chilling occurred. Part two reveals what they found.",
+                "scene_keywords": ["radio telescope night stars", "computer printout wow signal", "deep space galaxy void", "satellite dish glowing", "sagittarius constellation night"]
+            },
+            "part2": {
+                "title": "PART 2: The Return to Sagittarius #shorts #mystery",
+                "description": "PART 2 (FINALE): Decades of searching the Wow! Signal coordinates lead to a shocking star candidate. #shorts #viral #mystery",
+                "voiceover_script": "In Part 1, we examined the legendary seventy-two-second Wow! Signal detected in nineteen seventy-seven. For four decades, astronomers continuously swept the exact coordinates in Sagittarius using the world's most powerful radio arrays, but the heavens remained dead silent. Skeptics suggested passing comets or military satellites, but recent data from the European Space Agency's Gaia space observatory debunked every terrestrial explanation. In twenty twenty, researchers discovered a Sun-like star designated twoMASS nineteen twenty-eight, located eighteen hundred light-years away within the signal's exact transmission beam, possessing the identical temperature and luminosity as our own sun. Was the Wow! Signal a high-powered planetary radar beam sweeping across our solar system as an extraterrestrial vessel passed by? The universe fell silent, but the search has only begun.",
+                "scene_keywords": ["sunlike star exoplanet", "space observatory array", "deep interstellar cosmos", "alien radio pulse wave", "digital spectrum analyzer"]
+            }
+        },
+        {
+            "topic": "The Megaliths of Göbekli Tepe",
+            "part1": {
+                "title": "PART 1: The Sanctuary Older Than History #shorts",
+                "description": "PART 1 of 2: An 11,000-year-old stone temple in Turkey completely dismantled conventional human history. #shorts #viral #mystery",
+                "voiceover_script": "In nineteen ninety-four, a Kurdish shepherd in southeastern Turkey stumbled upon the tip of a massive limestone pillar buried beneath a dusty hill. When archaeologists began excavating, they made a discovery that shattered our understanding of human civilization. Göbekli Tepe is a colossal prehistoric complex featuring massive T-shaped stone pillars weighing up to twenty tons each, carved with intricate three-dimensional reliefs of scorpions, lions, and predatory birds. Carbon dating proved the site was constructed eleven thousand five hundred years ago, seven millennia before Stonehenge and older than the invention of the wheel, pottery, or metal tools. Hunter-gatherers were never supposed to possess the engineering genius to quarry, carve, and erect such monumental architecture. Part two reveals why the builders deliberately buried the entire site.",
+                "scene_keywords": ["ancient stone pillars excavation", "carved animal reliefs stone", "dusty archaeological dig", "foggy ancient sunrise", "mysterious megalith monument"]
+            },
+            "part2": {
+                "title": "PART 2: Why Did They Bury the Temple? #shorts #mystery",
+                "description": "PART 2 (FINALE): Ground-penetrating radar reveals Göbekli Tepe was intentionally sealed beneath millions of tons of earth. #shorts #viral #mystery",
+                "voiceover_script": "In Part 1, we saw how Göbekli Tepe rewrote the timeline of human engineering by over seven thousand years. But the greatest enigma is not how they built it; it is what they did next. Ground-penetrating radar revealed that after centuries of sacred rituals, the builders did not abandon their monument. They systematically backfilled the entire megalithic complex with hundreds of thousands of tons of dirt and animal bones, creating an artificial mountain to seal it away from the world. Why would an ancient society spend generations burying their most sacred architectural marvel? Recent archaeo-astronomy studies suggest the pillars align precisely with the catastrophic Younger Dryas comet impact that devastated Earth twelve thousand years ago. Was Göbekli Tepe a celestial time capsule warning future generations of a cosmic threat?",
+                "scene_keywords": ["radar scan underground", "comet impact atmosphere", "ancient skull carvings", "artificial earth mound", "astronomical pillar alignment"]
+            }
+        },
+        {
+            "topic": "The Skyjacking of D.B. Cooper",
+            "part1": {
+                "title": "PART 1: The Man Who Jumped Into the Void #shorts",
+                "description": "PART 1 of 2: In 1971, a man hijacked a Boeing 727, collected $200,000, and parachuted into freezing darkness. #shorts #viral #mystery",
+                "voiceover_script": "On Thanksgiving Eve, nineteen seventy-one, a quiet man in a dark suit calling himself Dan Cooper boarded Northwest Flight three hundred and five in Portland. Shortly after takeoff, he handed the flight attendant a handwritten note: I have a bomb in my briefcase. I will use it if necessary. In exchange for the passengers' lives, Cooper demanded two hundred thousand dollars in unmarked twenty-dollar bills and four parachutes. After landing in Seattle, he released all thirty-six passengers, refueled the Boeing seven twenty-seven, and ordered the pilots to fly low toward Reno, Nevada. Somewhere over the freezing, pitch-black wilderness of Washington State, Cooper lowered the aircraft's aft staircase and jumped into a torrential winter storm. He was never seen again. Part two reveals the FBI's most frustrating discovery.",
+                "scene_keywords": ["vintage airliner night flight", "briefcase red dynamite wires", "stormy clouds lightning", "open aft staircase plane", "parachutist night descent"]
+            },
+            "part2": {
+                "title": "PART 2: The Money on the Riverbank #shorts #mystery",
+                "description": "PART 2 (FINALE): Nine years after D.B. Cooper vanished, bundle serial numbers resurface in the sand. #shorts #viral #mystery",
+                "voiceover_script": "In Part 1, we witnessed D.B. Cooper's impossible mid-air parachute jump into the freezing storm. The FBI launched the most exhaustive manhunt in American history, deploying hundreds of soldiers, bloodhounds, and submarines to sweep the Columbia River basin. Not a single trace of Cooper, his parachute, or the money was found for nine years. Then in nineteen eighty, an eight-year-old boy digging on a beach near Vancouver, Washington, unearthed three rotting packets of Cooper's cash totaling five thousand eight hundred dollars, verified by serial numbers. Microscopic algae testing on the bills proved they entered the river months after the jump, miles away from where Cooper allegedly landed. Did Cooper survive the drop and escape under a new identity, or does his skeleton still hang in the dense forest canopy?",
+                "scene_keywords": ["unmarked twenty dollar bills", "muddy riverbank excavation", "fbi classified file stamps", "dense foggy pine forest", "mysterious trenchcoat silhouette"]
+            }
+        },
+        {
+            "topic": "The Taos Hum Anomaly",
+            "part1": {
+                "title": "PART 1: The Sound That Drives People Mad #shorts",
+                "description": "PART 1 of 2: In a quiet New Mexico town, residents began hearing a low drone that scientists cannot locate. #shorts #viral #mystery",
+                "voiceover_script": "Nestled in the high desert of New Mexico, the peaceful art colony of Taos seems like a tranquil paradise. But since the early nineteen nineties, a low-frequency, relentless buzzing sound has tortured residents day and night. Described as a diesel engine idling in the distance, the Taos Hum is heard by roughly two percent of the local population. Earplugs cannot muffle it, and going inside soundproof rooms only amplifies the torment, driving sufferers to severe insomnia, migraines, and psychological breakdowns. In nineteen ninety-three, Congress mandated an acoustic task force of university scientists and national laboratory physicists to install ultrasensitive microphones across the desert. What their monitors detected shocked the scientific community. Part two reveals what is generating the sound.",
+                "scene_keywords": ["desert town sunset taos", "acoustic microphone equipment", "soundwave frequency oscillogram", "restless sleeper night agony", "desolate desert highway"]
+            },
+            "part2": {
+                "title": "PART 2: The Secret VLF Submarine Network #shorts #mystery",
+                "description": "PART 2 (FINALE): Acoustic physicists uncover the real source of the global hum phenomena. #shorts #viral #mystery",
+                "voiceover_script": "In Part 1, we explored the maddening Taos Hum, the acoustic anomaly that baffled congressional investigators. When acoustic engineers placed the most sensitive seismic detectors across Taos, their equipment recorded absolute silence. The sound did not exist in the air, yet hundreds of people were undeniably hearing it. Medical tests ruled out mass hallucination and tinnitus. Leading neurobiologists now believe the hum is caused by the microwave auditory effect, where ultra-low-frequency electromagnetic radiation directly stimulates the human auditory cortex without creating mechanical sound waves. Declassified naval documents reveal that military very-low-frequency transmitter arrays used to communicate with submerged nuclear submarines blanket the continent in high-power radio waves. Only individuals with unique electromagnetic sensitivity perceive the invisible carrier wave. Could the air around us be vibrating right now?",
+                "scene_keywords": ["military radio antenna array", "electromagnetic wave simulation", "submerged submarine deep ocean", "human brain scan neural", "desert night starry sky"]
+            }
         }
     ]
 
-    # Attempt dynamic AI generation via Gemini Flash Lite if API key is provided and not expired
+    # Attempt dynamic AI generation via Gemini Flash models if API key is provided
     if api_key and not api_key.startswith("AQ."):
-        try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key={api_key}"
-            payload = json.dumps({"contents": [{"parts": [{"text": prompt}]}]}).encode("utf-8")
-            req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
+        candidate_models = ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-flash-8b"]
+        for model_name in candidate_models:
+            try:
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+                payload = json.dumps({
+                    "contents": [{"parts": [{"text": prompt}]}],
+                    "generationConfig": {
+                        "response_mime_type": "application/json",
+                        "temperature": 0.85
+                    }
+                }).encode("utf-8")
+                req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
 
-            with urllib.request.urlopen(req, timeout=25) as resp:
-                res_data = json.loads(resp.read().decode("utf-8"))
+                with urllib.request.urlopen(req, timeout=25) as resp:
+                    res_data = json.loads(resp.read().decode("utf-8"))
 
-            raw_text = res_data["candidates"][0]["content"]["parts"][0]["text"].strip()
-            match = re.search(r"\{.*\}", raw_text, re.DOTALL)
-            parsed = None
-            if match:
-                try:
-                    parsed = json.loads(match.group(0))
-                except Exception:
-                    pass
-            if not parsed:
-                parsed = json.loads(raw_text)
+                raw_text = res_data["candidates"][0]["content"]["parts"][0]["text"].strip()
+                match = re.search(r"\{.*\}", raw_text, re.DOTALL)
+                parsed = None
+                if match:
+                    try:
+                        parsed = json.loads(match.group(0))
+                    except Exception:
+                        pass
+                if not parsed:
+                    parsed = json.loads(raw_text)
 
-            if parsed and "part1" in parsed and "part2" in parsed:
-                print(f"[SUCCESS] Gemini Flash Lite generated new story: '{parsed.get('topic')}'")
-                return parsed
-        except Exception as err:
-            print(f"[WARN] Gemini API call failed ({err}). Falling back to curated offline mystery pool.")
+                if parsed and "part1" in parsed and "part2" in parsed:
+                    print(f"[SUCCESS] Gemini ({model_name}) generated new story: '{parsed.get('topic')}'")
+                    return parsed
+            except Exception as err:
+                print(f"[WARN] Gemini model {model_name} failed ({err}). Trying next fallback...")
     else:
         print("[INFO] No external Gemini API key provided. Selecting fresh story from curated pool.")
 
-    # Select the first topic in the curated pool that has not yet been covered
-    for story in offline_pool:
-        if story["topic"] not in past_topics:
-            print(f"[POOL] Selected fresh mystery from curated pool: '{story['topic']}'")
-            return story
+    # Select from curated pool with smart deduplication
+    unvisited = [story for story in offline_pool if story["topic"] not in past_topics]
+    if unvisited:
+        chosen = unvisited[0]
+        print(f"[POOL] Selected fresh unvisited mystery from curated pool: '{chosen['topic']}'")
+        return chosen
 
-    # If all curated topics were exhausted, return the first one
-    return offline_pool[0]
+    # If all pool stories have been used in total history, pick one not in recent history
+    recent_history = past_topics[-15:] if len(past_topics) >= 15 else past_topics
+    not_recent = [story for story in offline_pool if story["topic"] not in recent_history]
+    if not_recent:
+        chosen = random.choice(not_recent)
+        print(f"[POOL] Selected non-recent mystery from curated pool: '{chosen['topic']}'")
+        return chosen
+
+    chosen = random.choice(offline_pool)
+    print(f"[POOL] Selected mystery from pool: '{chosen['topic']}'")
+    return chosen
 
 
 def format_ass_time(srt_time_str: str) -> str:
