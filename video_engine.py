@@ -479,15 +479,19 @@ def get_media_duration(file_path: str, script_words: int = 125) -> float:
 
 def render_video(clips: list, audio_path: str, ass_path: str, output_path: str, script_words: int = 125):
     """
-    Renders vertical 720x1280 MP4 using FFmpeg and libass with normalized 30fps cadence.
+    Renders vertical 720x1280 MP4 using robust pre-normalized clip segments and libass.
+    Guarantees continuous 30fps video across the entire voiceover without freezing.
     """
     audio_duration = get_media_duration(audio_path, script_words)
+    work_dir = os.path.dirname(output_path)
+    norm_dir = os.path.join(work_dir, "normalized_clips")
+    os.makedirs(norm_dir, exist_ok=True)
 
     # Filter out empty or missing clips
     valid_clips = [c for c in clips if os.path.exists(c) and os.path.getsize(c) > 1024]
     if not valid_clips:
         print("[WARN] No valid stock clips found. Generating dark cinematic background fallback.")
-        fallback_clip = os.path.join(os.path.dirname(output_path), "bg_fallback.mp4")
+        fallback_clip = os.path.join(work_dir, "bg_fallback.mp4")
         cmd_bg = [
             "ffmpeg", "-y", "-f", "lavfi",
             "-i", "color=c=0x0a0a14:s=720x1280:r=30",
@@ -497,28 +501,43 @@ def render_video(clips: list, audio_path: str, ass_path: str, output_path: str, 
         ]
         subprocess.check_call(cmd_bg)
         valid_clips = [fallback_clip]
-    clips = valid_clips
 
-    clip_dur = audio_duration / max(1, len(clips))
+    # Target 14 to 16 rapid visual cuts across the full audio duration
+    target_cuts = max(14, len(valid_clips))
+    cut_dur = audio_duration / target_cuts
+    print(f"  Normalizing {target_cuts} video cuts ({cut_dur:.2f}s each) to guarantee zero freezing...")
 
-    concat_list_path = os.path.join(os.path.dirname(output_path), "concat_list.txt")
+    normalized_clips = []
+    for idx in range(target_cuts):
+        src_clip = valid_clips[idx % len(valid_clips)]
+        norm_file = os.path.join(norm_dir, f"norm_c{idx:02d}.mp4")
+
+        # -stream_loop -1 ensures even short clips fill the cut duration completely without dropping frames
+        cmd_norm = [
+            "ffmpeg", "-y",
+            "-stream_loop", "-1",
+            "-i", src_clip,
+            "-t", f"{cut_dur:.2f}",
+            "-vf", "scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280,fps=30",
+            "-c:v", "libx264", "-preset", "ultrafast", "-crf", "20",
+            "-pix_fmt", "yuv420p",
+            norm_file
+        ]
+        subprocess.check_call(cmd_norm, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        normalized_clips.append(norm_file)
+
+    concat_list_path = os.path.join(work_dir, "concat_list.txt")
     with open(concat_list_path, "w", encoding="utf-8") as f:
-        for clip in clips:
-            clean_path = os.path.abspath(clip).replace("\\", "/")
+        for c in normalized_clips:
+            clean_path = os.path.abspath(c).replace("\\", "/")
             f.write(f"file '{clean_path}'\n")
-            f.write(f"duration {clip_dur:.2f}\n")
-        if clips:
-            last_clip_path = os.path.abspath(clips[-1]).replace("\\", "/")
-            f.write(f"file '{last_clip_path}'\n")
 
     clean_ass = os.path.abspath(ass_path).replace("\\", "/").replace(":", "\\:")
-    vf = f"scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280,fps=30,subtitles='{clean_ass}'"
-
     cmd = [
         "ffmpeg", "-y",
         "-f", "concat", "-safe", "0", "-i", concat_list_path,
         "-i", audio_path,
-        "-vf", vf,
+        "-vf", f"subtitles='{clean_ass}'",
         "-map", "0:v:0",
         "-map", "1:a:0",
         "-r", "30",
