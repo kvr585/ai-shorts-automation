@@ -67,6 +67,17 @@ jobs:
         run: |
           python main.py --publish-only "${{ steps.release.outputs.VIDEO_URL }}"
 
+      - name: Clean Up Old Releases (Keep Latest 5)
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          OLD_RELEASES=$(gh release list --limit 100 --json tagName --jq '.[5:][].tagName')
+          for TAG in $OLD_RELEASES; do
+            echo "Deleting old release asset: $TAG"
+            gh release delete "$TAG" --yes --cleanup-tag || true
+          done
+
       - name: Commit and Push Updated State
         if: always()
         run: |
