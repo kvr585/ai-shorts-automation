@@ -21,17 +21,5 @@
     "The Cash-Landrum Radiation Anomaly",
     "The Voynich Manuscript"
   ],
-  "pending_part_2": {
-    "title": "PART 2: The AI Decoding Revelation #shorts #mystery",
-    "description": "PART 2 (FINALE): Supercomputers analyze the Voynich Manuscript and discover an impossible pattern. #shorts #viral #mystery",
-    "voiceover_script": "In Part 1, we explored the Voynich Manuscript, the uncrackable medieval codex that stumped the greatest minds in cryptography. In twenty eighteen, computer scientists fed the entire text into natural language processing supercomputers to test whether the book was simply an elaborate Renaissance hoax. The algorithms revealed something extraordinary: the text strictly obeys Zipf's Law, an intricate mathematical distribution of word frequencies found only in genuine, complex human spoken languages. The artificial intelligence identified repeating anagram patterns consistent with an ancient Hebrew dialect encoded through letter substitution. But why went to such extreme lengths to conceal its knowledge? The translated section headers repeatedly reference lost botanical pharmacology and celestial mapping, suggesting the manuscript guards forbidden scientific discoveries wiped from recorded history.",
-    "scene_keywords": [
-      "supercomputer code matrix",
-      "ancient hebrew scrolls",
-      "medieval apothecary herbs",
-      "astronomical constellation map",
-      "cryptic glowing cipher"
-    ],
-    "topic": "The Voynich Manuscript"
-  }
+  "pending_part_2": null
 }
