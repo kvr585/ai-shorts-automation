@@ -22,17 +22,5 @@
     "The Voynich Manuscript",
     "The Wow! Signal"
   ],
-  "pending_part_2": {
-    "title": "PART 2: The Return to Sagittarius #shorts #mystery",
-    "description": "PART 2 (FINALE): Decades of searching the Wow! Signal coordinates lead to a shocking star candidate. #shorts #viral #mystery",
-    "voiceover_script": "In Part 1, we examined the legendary seventy-two-second Wow! Signal detected in nineteen seventy-seven. For four decades, astronomers continuously swept the exact coordinates in Sagittarius using the world's most powerful radio arrays, but the heavens remained dead silent. Skeptics suggested passing comets or military satellites, but recent data from the European Space Agency's Gaia space observatory debunked every terrestrial explanation. In twenty twenty, researchers discovered a Sun-like star designated twoMASS nineteen twenty-eight, located eighteen hundred light-years away within the signal's exact transmission beam, possessing the identical temperature and luminosity as our own sun. Was the Wow! Signal a high-powered planetary radar beam sweeping across our solar system as an extraterrestrial vessel passed by? The universe fell silent, but the search has only begun.",
-    "scene_keywords": [
-      "sunlike star exoplanet",
-      "space observatory array",
-      "deep interstellar cosmos",
-      "alien radio pulse wave",
-      "digital spectrum analyzer"
-    ],
-    "topic": "The Wow! Signal"
-  }
+  "pending_part_2": null
 }
