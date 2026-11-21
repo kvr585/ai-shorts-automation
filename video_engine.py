@@ -1,6 +1,7 @@
 import os
 import re
 import json
+import time
 import random
 import asyncio
 import urllib.request
@@ -232,38 +233,46 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
 
     # Attempt dynamic AI generation via Gemini Flash models if API key is provided
     if api_key:
-        candidate_models = ["gemini-3.5-flash", "gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+        candidate_models = ["gemini-3.5-flash-lite", "gemini-3-flash-preview", "gemini-3.5-flash", "gemini-flash-latest"]
         for model_name in candidate_models:
-            try:
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
-                payload = json.dumps({
-                    "contents": [{"parts": [{"text": prompt}]}],
-                    "generationConfig": {
-                        "response_mime_type": "application/json",
-                        "temperature": 0.85
-                    }
-                }).encode("utf-8")
-                req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
+            for attempt in range(2):
+                try:
+                    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+                    payload = json.dumps({
+                        "contents": [{"parts": [{"text": prompt}]}],
+                        "generationConfig": {
+                            "response_mime_type": "application/json",
+                            "temperature": 0.85
+                        }
+                    }).encode("utf-8")
+                    req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
 
-                with urllib.request.urlopen(req, timeout=25) as resp:
-                    res_data = json.loads(resp.read().decode("utf-8"))
+                    with urllib.request.urlopen(req, timeout=30) as resp:
+                        res_data = json.loads(resp.read().decode("utf-8"))
 
-                raw_text = res_data["candidates"][0]["content"]["parts"][0]["text"].strip()
-                match = re.search(r"\{.*\}", raw_text, re.DOTALL)
-                parsed = None
-                if match:
-                    try:
-                        parsed = json.loads(match.group(0))
-                    except Exception:
-                        pass
-                if not parsed:
-                    parsed = json.loads(raw_text)
+                    raw_text = res_data["candidates"][0]["content"]["parts"][0]["text"].strip()
+                    match = re.search(r"\{.*\}", raw_text, re.DOTALL)
+                    parsed = None
+                    if match:
+                        try:
+                            parsed = json.loads(match.group(0))
+                        except Exception:
+                            pass
+                    if not parsed:
+                        parsed = json.loads(raw_text)
 
-                if parsed and "part1" in parsed and "part2" in parsed:
-                    print(f"[SUCCESS] Gemini ({model_name}) generated new story: '{parsed.get('topic')}'")
-                    return parsed
-            except Exception as err:
-                print(f"[WARN] Gemini model {model_name} failed ({err}). Trying next fallback...")
+                    if parsed and "part1" in parsed and "part2" in parsed:
+                        topic_name = (parsed.get("topic") or "").strip()
+                        # Strict deduplication check against past_topics
+                        if topic_name and topic_name not in past_topics:
+                            print(f"[SUCCESS] Gemini ({model_name}) generated brand-new story: '{topic_name}'")
+                            return parsed
+                        elif topic_name:
+                            print(f"[WARN] Gemini returned already-covered topic '{topic_name}'. Retrying with fresh generation...")
+                            continue
+                except Exception as err:
+                    print(f"[WARN] Gemini model {model_name} attempt {attempt+1} failed ({err}). Trying next fallback...")
+                    time.sleep(2)
     else:
         print("[INFO] No external Gemini API key provided. Selecting fresh story from curated pool.")
 
@@ -274,16 +283,16 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
         print(f"[POOL] Selected fresh unvisited mystery from curated pool: '{chosen['topic']}'")
         return chosen
 
-    # If all pool stories have been used in total history, pick one not in recent history
-    recent_history = past_topics[-15:] if len(past_topics) >= 15 else past_topics
-    not_recent = [story for story in offline_pool if story["topic"] not in recent_history]
-    if not_recent:
-        chosen = random.choice(not_recent)
-        print(f"[POOL] Selected non-recent mystery from curated pool: '{chosen['topic']}'")
-        return chosen
+    # If all pool stories have been used in total history, pick the least recently posted topic
+    def _topic_age(story):
+        try:
+            return past_topics.index(story["topic"])
+        except ValueError:
+            return -1
 
-    chosen = random.choice(offline_pool)
-    print(f"[POOL] Selected mystery from pool: '{chosen['topic']}'")
+    sorted_by_oldest = sorted(offline_pool, key=_topic_age)
+    chosen = sorted_by_oldest[0]
+    print(f"[POOL] Selected oldest mystery from pool (least recently posted): '{chosen['topic']}'")
     return chosen
 
 
