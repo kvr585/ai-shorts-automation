@@ -30,20 +30,5 @@
     "The Elephant's Foot of Chernobyl",
     "The 1908 Tunguska Event"
   ],
-  "pending_part_2": {
-    "title": "PART 2: The Secret of Tunguska #shorts #mystery",
-    "description": "PART 2 (FINALE): Uncovering the terrifying truth behind the 1908 atmospheric explosion that baffled science. #shorts #viral #mystery",
-    "voiceover_script": "In Part 1, we explored the massive 1908 Tunguska blast that flattened millions of trees without leaving a crater, but when researchers analyzed microscopic soil samples, everything changed. Deep within the peat bogs, scientists discovered high concentrations of extraterrestrial silicate and magnetite spheres, proving a cosmic origin. Modern computer simulations reveal the terrifying truth: a stony asteroid, roughly sixty meters wide, entered Earth's atmosphere at hyper-velocity and experienced an airburst five miles above the ground. The intense heat instantly vaporized the rock before it could ever hit the surface, leaving behind no traditional impact crater. It was the largest impact event in recorded human history, and if it had arrived just four hours later, St. Petersburg would have been completely wiped off the map. Share this with a history lover.",
-    "scene_keywords": [
-      "microscopic asteroid dust",
-      "computer simulation airburst",
-      "asteroid entering atmosphere",
-      "fiery explosion in sky",
-      "soil sample laboratory analysis",
-      "craterless impact zone",
-      "historical city map overlay",
-      "epic scientific discovery"
-    ],
-    "topic": "The 1908 Tunguska Event"
-  }
+  "pending_part_2": null
 }
