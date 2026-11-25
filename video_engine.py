@@ -296,6 +296,401 @@ Output STRICT RAW JSON ONLY (no markdown code blocks, no backticks, no introduct
     return chosen
 
 
+PROMO_ROTATION_BANK = [
+    {
+        "angle_idx": 1,
+        "angle_name": "Angle 1 — Freshers Interview Freeze Hook",
+        "hook_text": "POV: Your brain goes completely blank in a live Google Meet round 😳🧠",
+        "title": "Never Freeze in Tech Interviews Again #shorts",
+        "topic": "Virtual Meeting Assistant — Interview Freeze",
+        "description_hook": "POV: Your brain blanks out the second the Google Meet connects 🧠📉",
+        "bullet_benefits": [
+            "Real-time AI talking points streamed right to your screen",
+            "Hold Ctrl+Space to get concise, first-person answers instantly"
+        ],
+        "cta": "Test your next mock interview free for 15 minutes 👇\nTrial Key: FREE-TRIAL-15M\nLink in bio / Comment 'COPILOT' to get the 1-click installer!",
+        "voiceover_script": (
+            "You studied for weeks, but the second the interviewer asks a question, "
+            "your brain freezes and words won't come out. Here is how to stay confident. "
+            "Meet Virtual Meeting Assistant, a native Windows teleprompter for live calls. "
+            "Just hold Control plus Space. It listens to your meeting audio and streams concise, "
+            "first-person talking points right on a sleek top bar. You maintain eye contact and "
+            "sound crystal clear. Try it free for fifteen minutes with key FREE-TRIAL-15M. Link in bio!"
+        ),
+        "scene_keywords": [
+            "job interview anxiety", "laptop video call", "programmer typing",
+            "clean modern office", "technology screen", "focus software"
+        ],
+        "badge": "AI COPILOT",
+        "pinned_comment": (
+            "🚀 Want to try it on your next mock interview? "
+            "Download the 1-click Windows installer: [Link in Bio]. "
+            "Use trial code FREE-TRIAL-15M for 15 minutes of free real-time meeting assistance!"
+        ),
+        "cat_a": ["#aitools", "#productivityhacks", "#careeradvice", "#techreels"],
+        "cat_b": ["#interviewprep", "#mockinterview", "#freshersjobs", "#techinterview"],
+        "cat_c": ["#googlemeet", "#careercoach"]
+    },
+    {
+        "angle_idx": 2,
+        "angle_name": "Angle 2 — Resume + JD Personalization Demo",
+        "hook_text": "Generic ChatGPT answers fail technical interviews ❌📄",
+        "title": "The AI Copilot That Reads YOUR Actual Resume #shorts",
+        "topic": "Virtual Meeting Assistant — Resume Grounded",
+        "description_hook": "Generic ChatGPT answers fail interviews. This reads your resume 📄🎯",
+        "bullet_benefits": [
+            "Reads your actual Resume PDF and target Job Description",
+            "Tailors first-person answers directly to your real tech stack"
+        ],
+        "cta": "Ace your next mock interview with tailored answers 👇\nTrial Key: FREE-TRIAL-15M\nLink in bio / Comment 'RESUME' for 15 mins free access!",
+        "voiceover_script": (
+            "Most AI tools give generic textbook answers that sound fake in tech interviews. "
+            "Virtual Meeting Assistant is completely different. Drop your Resume PDF and the company "
+            "job description right into the folder. When the interviewer asks about your past projects, "
+            "hold Control plus Space. It streams custom talking points grounded directly in your actual "
+            "tech stack and resume accomplishments. Sound authentic and ace your next mock interview. "
+            "Get your fifteen-minute trial with key FREE-TRIAL-15M in bio!"
+        ),
+        "scene_keywords": [
+            "resume document review", "software engineer laptop", "coding screen terminal",
+            "modern workstation", "digital data stream", "career developer"
+        ],
+        "badge": "RESUME COPILOT",
+        "pinned_comment": (
+            "📄 Tailored to YOUR actual resume and tech stack! "
+            "Download Virtual Meeting Assistant: [Link in Bio]. "
+            "Use trial code FREE-TRIAL-15M for 15 minutes free!"
+        ),
+        "cat_a": ["#techtrends", "#jobsearch", "#aiassistant", "#futureofwork"],
+        "cat_b": ["#softwareengineer", "#codinginterview", "#placements", "#btech"],
+        "cat_c": ["#interviewtips", "#jobinterviewtips"]
+    },
+    {
+        "angle_idx": 3,
+        "angle_name": "Angle 3 — Coding & System Design Round Assistant",
+        "hook_text": "When the interviewer asks for Big-O complexity live on call ⏱️💻",
+        "title": "Master Live Coding & System Design Rounds #shorts",
+        "topic": "Virtual Meeting Assistant — System Design",
+        "description_hook": "When the interviewer asks time complexity & tradeoffs live on call ⏱️💻",
+        "bullet_benefits": [
+            "Dedicated Coding and Architecture mode for live rounds",
+            "Instant Big-O complexity analysis and architecture tradeoffs"
+        ],
+        "cta": "Crush your technical screens with zero panic 👇\nTrial Key: FREE-TRIAL-15M\nLink in bio / Comment 'CODE' for the 1-click Windows app!",
+        "voiceover_script": (
+            "Nothing triggers interview panic like unexpected system design tradeoffs or time complexity "
+            "questions. Virtual Meeting Assistant has a dedicated Coding and Architecture mode. "
+            "While you discuss your approach on Zoom or Teams, tap Alt plus Z. The transparent top bar "
+            "instantly displays clean Big-O analysis, caching tradeoffs, and structured bullet points to "
+            "guide your explanation smoothly. Never scramble for answers during technical screens again. "
+            "Try fifteen minutes free with code FREE-TRIAL-15M. Check the link in bio!"
+        ),
+        "scene_keywords": [
+            "code algorithm screen", "software developer thinking", "dual monitor coding",
+            "server network architecture", "typing fast keyboard", "cyber security tech"
+        ],
+        "badge": "SYSTEM DESIGN",
+        "pinned_comment": (
+            "💻 Master system design and Big-O tradeoffs under pressure! "
+            "Download Virtual Meeting Assistant: [Link in Bio]. "
+            "Trial Key: FREE-TRIAL-15M for 15 minutes free!"
+        ),
+        "cat_a": ["#aitools", "#techtrends", "#productivityhacks", "#futureofwork"],
+        "cat_b": ["#codinginterview", "#systemdesign", "#techinterview", "#softwareengineer"],
+        "cat_c": ["#developertools", "#pythonprojects"]
+    },
+    {
+        "angle_idx": 4,
+        "angle_name": "Angle 4 — Stealth / Invisible Screen-Share Bar Feature",
+        "hook_text": "Notice why the top of my screen looks completely clean? 🤫🖥️",
+        "title": "The Invisible Screen-Share AI Teleprompter #shorts",
+        "topic": "Virtual Meeting Assistant — Stealth Top Bar",
+        "description_hook": "Notice why the top of my screen isn't visible when sharing? 🤫🖥️",
+        "bullet_benefits": [
+            "Transparent click-through top HUD in your direct eye-line",
+            "Excluded from Zoom, Google Meet, and Teams screen sharing"
+        ],
+        "cta": "Never fumble through notes on screen again 👇\nTrial Key: FREE-TRIAL-15M\nLink in bio / Comment 'STEALTH' to try it free for 15 mins!",
+        "voiceover_script": (
+            "If you use regular notes during a video call, window switching looks obvious and distracting. "
+            "Virtual Meeting Assistant solves this with a stealth top HUD. It sits as a transparent, "
+            "click-through bar at the very top of your Windows desktop, completely excluded from Zoom and "
+            "Meet screen sharing. You can share your screen while your bullet points remain effortlessly "
+            "visible in your natural eye-line. Level up your meeting confidence today. "
+            "Try fifteen minutes free with key FREE-TRIAL-15M in bio!"
+        ),
+        "scene_keywords": [
+            "computer screen sharing", "virtual meeting webcam", "minimalist desk setup",
+            "transparent glass technology", "confident presentation", "office monitor"
+        ],
+        "badge": "STEALTH TELEPROMPTER",
+        "pinned_comment": (
+            "🤫 Clean top-bar teleprompter excluded from screen-sharing windows! "
+            "Get Virtual Meeting Assistant: [Link in Bio]. "
+            "Trial Key: FREE-TRIAL-15M for 15 minutes free!"
+        ),
+        "cat_a": ["#aitools", "#productivityhacks", "#careeradvice", "#techreels"],
+        "cat_b": ["#remotejobs", "#mockinterview", "#freshersjobs", "#techinterview"],
+        "cat_c": ["#zoommeeting", "#googlemeet"]
+    },
+    {
+        "angle_idx": 5,
+        "angle_name": "Angle 5 — Builder Story / Indie Project Reel",
+        "hook_text": "I built a Windows AI copilot because question banks failed me 🛠️💡",
+        "title": "Why I Built an AI Live Meeting Teleprompter #shorts",
+        "topic": "Virtual Meeting Assistant — Builder Story",
+        "description_hook": "Prepping 100 questions wasn't enough, so I built this AI copilot 🛠️💡",
+        "bullet_benefits": [
+            "Instant local speech recognition + live AI streaming response",
+            "Lightweight single-file .exe with zero browser extension lag"
+        ],
+        "cta": "Test what I built on your next mock round 👇\nTrial Key: FREE-TRIAL-15M\nLink in bio / Comment 'BUILDER' for the direct installer!",
+        "voiceover_script": (
+            "Practicing static interview question banks never prepares you for spontaneous technical "
+            "follow-ups. So I built Virtual Meeting Assistant as a lightweight Windows app. "
+            "I integrated fast local audio capture with real-time speech recognition and streaming AI intelligence. "
+            "It packages into a simple one-click installer that runs with zero browser bloat. "
+            "It has completely transformed how engineers prepare for mock interviews. "
+            "Download the installer and test it free for fifteen minutes using key FREE-TRIAL-15M. "
+            "Comment PRO for the link!"
+        ),
+        "scene_keywords": [
+            "indie developer building", "python code matrix", "dark mode code editor",
+            "coffee startup desk", "innovative software app", "programming terminal"
+        ],
+        "badge": "BUILDER LOG",
+        "pinned_comment": (
+            "🛠️ Built for engineers and professionals who want real-time call confidence. "
+            "Download the 1-click installer: [Link in Bio]. "
+            "Trial Key: FREE-TRIAL-15M!"
+        ),
+        "cat_a": ["#techreels", "#jobsearch", "#aiassistant", "#futureofwork"],
+        "cat_b": ["#softwareengineer", "#codinginterview", "#placements", "#remotejobs"],
+        "cat_c": ["#developertools", "#pythonprojects"]
+    },
+    {
+        "angle_idx": 6,
+        "angle_name": "Angle 6 — Remote Job & Client Call Use Case",
+        "hook_text": "Working with international clients? Never lose track on Teams 🌍💼",
+        "title": "Never Lose Track in High-Stakes Client Calls #shorts",
+        "topic": "Virtual Meeting Assistant — Remote Client Calls",
+        "description_hook": "Never lose track of technical questions on Teams calls 🌍💼",
+        "bullet_benefits": [
+            "General Meeting mode summarizes complex client questions live",
+            "Transforms fast-moving discussions into concise talking points"
+        ],
+        "cta": "Lead every international client call with authority 👇\nTrial Key: FREE-TRIAL-15M\nLink in bio / Comment 'CLIENT' for free 15-min trial!",
+        "voiceover_script": (
+            "Balancing high-stakes remote client calls across different time zones is tough when technical "
+            "requirements fly fast. Virtual Meeting Assistant includes a dedicated General Meeting mode. "
+            "During live Microsoft Teams or Zoom discussions, it listens to the call audio and organizes "
+            "complex client requirements into crisp, actionable talking points on your screen in real time. "
+            "You lead every discussion with authority and clarity. "
+            "Experience it free for fifteen minutes with promo key FREE-TRIAL-15M. Link in bio!"
+        ),
+        "scene_keywords": [
+            "remote work international", "business video conference", "corporate laptop meeting",
+            "financial technology charts", "executive office desk", "global connectivity"
+        ],
+        "badge": "CLIENT COPILOT",
+        "pinned_comment": (
+            "🌍 Lead every remote client and team call with absolute confidence. "
+            "Try Virtual Meeting Assistant: [Link in Bio]. "
+            "Trial Key: FREE-TRIAL-15M for 15 minutes free!"
+        ),
+        "cat_a": ["#productivityhacks", "#careeradvice", "#jobsearch", "#futureofwork"],
+        "cat_b": ["#remotejobs", "#freshersjobs", "#techinterview", "#mockinterview"],
+        "cat_c": ["#zoommeeting", "#aiforwork"]
+    },
+    {
+        "angle_idx": 7,
+        "angle_name": "Angle 7 — Zero-Setup Friction Comparison",
+        "hook_text": "Stop dealing with clunky, laggy browser extensions ⚡💻",
+        "title": "Why Native Windows Apps Beat Browser Extensions #shorts",
+        "topic": "Virtual Meeting Assistant — Native Speed",
+        "description_hook": "Browser extensions lag and get clunky. Look how clean native is ⚡💻",
+        "bullet_benefits": [
+            "Single 1-click .exe installer sets up in under 30 seconds",
+            "Ultra-lightweight dark overlay HUD with zero browser memory hog"
+        ],
+        "cta": "Get high-performance AI meeting assistance now 👇\nTrial Key: FREE-TRIAL-15M\nLink in bio / Comment 'NATIVE' to get the installer!",
+        "voiceover_script": (
+            "Browser extensions crash tabs, hog memory, and require clunky permissions right when your "
+            "interview starts. Virtual Meeting Assistant is engineered as a native, lightweight Windows "
+            "desktop app. Download the single exe installer and you are up and running in under thirty seconds. "
+            "No account friction, no browser lag, just an ultra-fast dark overlay teleprompter ready whenever "
+            "you hold Control plus Space. Test your mock interview free for fifteen minutes with key "
+            "FREE-TRIAL-15M. Grab the link below!"
+        ),
+        "scene_keywords": [
+            "fast computer performance", "clean modern software", "laptop productivity setup",
+            "speed technology abstract", "smooth desktop workflow", "windows software pc"
+        ],
+        "badge": "1-CLICK NATIVE",
+        "pinned_comment": (
+            "⚡ 1-click Windows installer with zero browser lag. "
+            "Download Virtual Meeting Assistant: [Link in Bio]. "
+            "Trial Key: FREE-TRIAL-15M for 15 minutes free!"
+        ),
+        "cat_a": ["#aitools", "#techtrends", "#productivityhacks", "#techreels"],
+        "cat_b": ["#interviewprep", "#softwareengineer", "#btech", "#codinginterview"],
+        "cat_c": ["#developertools", "#careercoach"]
+    },
+    {
+        "angle_idx": 8,
+        "angle_name": "Angle 8 — Instant Free Trial Challenge",
+        "hook_text": "Test your next mock interview with AI coaching for 15 mins free ⏱️🚀",
+        "title": "15-Minute Free AI Mock Interview Challenge #shorts",
+        "topic": "Virtual Meeting Assistant — Free Trial Challenge",
+        "description_hook": "Test your next mock interview with AI coaching for 15 mins free ⏱️🚀",
+        "bullet_benefits": [
+            "Instant 15-minute trial using public key FREE-TRIAL-15M",
+            "Works live with YouTube mock interviews and real meeting calls"
+        ],
+        "cta": "Take the 15-minute interview challenge today 👇\nTrial Key: FREE-TRIAL-15M\nLink in bio / Comment 'TRIAL' to start right now!",
+        "voiceover_script": (
+            "Here is a zero-risk challenge for your next tech prep session. Download Virtual Meeting Assistant, "
+            "launch the clean one-click installer, and enter public trial key FREE-TRIAL-15M. "
+            "Open any YouTube mock interview or live call, hold Control plus Space, and watch real-time structured "
+            "talking points stream across the top of your screen. See how much sharper and more composed "
+            "your answers sound. Grab your free fifteen-minute trial now from the link in bio or comment "
+            "LINK below!"
+        ),
+        "scene_keywords": [
+            "mock interview preparation", "students tech career", "laptop typing challenge",
+            "smart artificial intelligence", "download software screen", "future work tech"
+        ],
+        "badge": "15-MIN FREE TRIAL",
+        "pinned_comment": (
+            "⏱️ Take the free 15-minute mock interview challenge! "
+            "Download Virtual Meeting Assistant: [Link in Bio]. "
+            "Trial Key: FREE-TRIAL-15M!"
+        ),
+        "cat_a": ["#aitools", "#careeradvice", "#jobsearch", "#aiassistant"],
+        "cat_b": ["#mockinterview", "#freshersjobs", "#interviewprep", "#placements"],
+        "cat_c": ["#jobinterviewtips", "#interviewtips"]
+    }
+]
+
+
+def generate_promo_story(api_key: str, promo_history: list, last_angle_idx: int = -1) -> dict:
+    """
+    Generates a high-converting, compliant 25-40s promo reel for 'Virtual Meeting Assistant'.
+    Rotates sequentially across Angles 1-8, guaranteeing non-repetitive angles and rotated hashtags.
+    Supports dynamic Gemini enrichment when API key is active with instant fallback.
+    """
+    total_angles = len(PROMO_ROTATION_BANK)
+    recent_angle_indices = [p.get("angle_idx") for p in promo_history[-6:] if isinstance(p, dict)]
+
+    # Determine next angle index (1-based, 1 to 8)
+    if last_angle_idx < 1 or last_angle_idx > total_angles:
+        candidate_idx = 1
+    else:
+        candidate_idx = (last_angle_idx % total_angles) + 1
+
+    # Guarantee angle differs from the most recent 1-2 promo reels if possible
+    if recent_angle_indices and candidate_idx == recent_angle_indices[-1]:
+        candidate_idx = (candidate_idx % total_angles) + 1
+
+    template = PROMO_ROTATION_BANK[candidate_idx - 1]
+    print(f"\n[PROMO ENGINE] Selected Rotation Angle: {template['angle_name']}")
+    print(f"  Recent Promo History (last 6): {recent_angle_indices}")
+    print(f"  Angle Diversity Verified: Angle {candidate_idx} is unique from immediate predecessor.")
+
+    # Mix 8-12 hashtags from 3 distinct categories with rotation
+    all_hashtags = template["cat_a"] + template["cat_b"] + template["cat_c"]
+    hashtags_str = " ".join(all_hashtags)
+
+    full_description = (
+        f"{template['description_hook']}\n\n"
+        f"• {template['bullet_benefits'][0]}\n"
+        f"• {template['bullet_benefits'][1]}\n\n"
+        f"{template['cta']}\n\n"
+        f"{hashtags_str}"
+    )
+
+    result = {
+        "angle_idx": candidate_idx,
+        "angle_name": template["angle_name"],
+        "hook_text": template["hook_text"],
+        "title": template["title"],
+        "topic": template["topic"],
+        "description": full_description,
+        "voiceover_script": template["voiceover_script"],
+        "scene_keywords": template["scene_keywords"],
+        "badge": template["badge"],
+        "pinned_comment": template["pinned_comment"],
+        "hashtags": all_hashtags
+    }
+
+    # Optional dynamic Gemini generation if API key is active
+    if api_key and len(api_key) > 10:
+        candidate_models = ["gemini-3.5-flash-lite", "gemini-3-flash-preview", "gemini-3.5-flash", "gemini-flash-latest"]
+        gemini_prompt = f"""You are an elite short-form video creator.
+Write a 25-35 second high-converting TikTok / Reels script for Windows desktop app: "Virtual Meeting Assistant".
+
+ANGLE TO FEATURE:
+{template['angle_name']}
+Target Hook: "{template['hook_text']}"
+
+PRODUCT FACTS (USE ACCURATELY):
+- Windows desktop app (1-click .exe installer).
+- Listens to meeting audio (Zoom, Google Meet, MS Teams) via audio loopback (Ctrl+Space / Alt+Z).
+- Streams concise first-person talking points on a sleek top-bar teleprompter.
+- Stealth top-bar overlay: transparent, click-through, and excluded from screen-sharing windows.
+- Resume & JD aware: reads Resume PDF/DOCX and target JD to tailor answers to real projects.
+- Public 15-min free trial key: FREE-TRIAL-15M.
+
+PLATFORM SAFETY RULE:
+- NEVER use words like "cheat", "hack", or "bypass proctoring".
+- ALWAYS frame cleanly as: "AI Mock Interview Copilot", "Real-Time Meeting Teleprompter", or "Confidence Copilot".
+
+SCRIPT CONSTRAINTS:
+- Length: 75 to 85 spoken words strictly (26 to 34 seconds spoken pace).
+- Spoken words only. No speaker labels, no stage directions.
+
+Return STRICT RAW JSON ONLY:
+{{
+  "title": "{template['title']}",
+  "voiceover_script": "75-85 word spoken script...",
+  "scene_keywords": ["laptop video call", "coding screen", "job interview", "modern desk", "software terminal"]
+}}"""
+        for model_name in candidate_models:
+            endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+            payload = {
+                "contents": [{"parts": [{"text": gemini_prompt}]}],
+                "generationConfig": {"temperature": 0.7, "maxOutputTokens": 600}
+            }
+            try:
+                req = urllib.request.Request(
+                    endpoint,
+                    data=json.dumps(payload).encode("utf-8"),
+                    headers={"Content-Type": "application/json"}
+                )
+                with urllib.request.urlopen(req, timeout=12) as response:
+                    res_data = json.loads(response.read().decode("utf-8"))
+                    text_out = res_data["candidates"][0]["content"]["parts"][0]["text"].strip()
+                    clean_json = re.sub(r"^```(?:json)?\s*", "", text_out, flags=re.MULTILINE)
+                    clean_json = re.sub(r"\s*```$", "", clean_json, flags=re.MULTILINE).strip()
+                    parsed = json.loads(clean_json)
+                    gen_script = parsed.get("voiceover_script", "").strip()
+                    words_count = len(gen_script.split())
+                    banned = ["cheat", "hack", "bypass"]
+                    is_safe = not any(b in gen_script.lower() for b in banned)
+                    if gen_script and 65 <= words_count <= 95 and is_safe:
+                        result["voiceover_script"] = gen_script
+                        if parsed.get("title"):
+                            result["title"] = parsed["title"]
+                        if parsed.get("scene_keywords"):
+                            result["scene_keywords"] = parsed["scene_keywords"]
+                        print(f"  [Gemini] Successfully generated dynamic variation using {model_name} ({words_count} words).")
+                        break
+            except Exception:
+                continue
+
+    return result
+
+
 def format_ass_time(srt_time_str: str) -> str:
     clean = srt_time_str.replace(',', '.')[:-1]
     if clean.startswith("00:"):
