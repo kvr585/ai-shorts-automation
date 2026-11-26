@@ -1,7 +1,14 @@
 {
-  "reel_count": 2,
-  "promo_history": [],
-  "last_promo_angle_idx": -1,
+  "reel_count": 3,
+  "promo_history": [
+    {
+      "angle_idx": 1,
+      "angle_name": "Angle 1 \u2014 Freshers Interview Freeze Hook",
+      "hook": "POV: Your brain goes completely blank in a live Google Meet round \ud83d\ude33\ud83e\udde0",
+      "timestamp": "2026-11-26 08:31:10"
+    }
+  ],
+  "last_promo_angle_idx": 1,
   "past_topics": [
     "The Subterranean Vault Anomaly",
     "The Shag Harbour UFO Incident",
