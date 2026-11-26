@@ -1,5 +1,5 @@
 {
-  "reel_count": 1,
+  "reel_count": 2,
   "promo_history": [],
   "last_promo_angle_idx": -1,
   "past_topics": [
@@ -37,20 +37,5 @@
     "The 1959 Vasarez Pass Anomaly",
     "The 1876 Kentucky Meat Shower"
   ],
-  "pending_part_2": {
-    "title": "PART 2: The Vulture Vomit Theory #shorts #mystery",
-    "description": "PART 2 (FINALE): Scientists reveal the disturbing truth behind the Kentucky Meat Shower. #shorts #viral #mystery",
-    "voiceover_script": "The Kentucky meat shower wasn't beef or venison; it was a biological mass of death. In part one, we explored the day the sky rained flesh, but when the microscopic analysis returned, the horror deepened. Dr. Edwards Johnston identified the samples as actual lung tissue, muscle fiber, and cartilage from a variety of animals. How does a cloudless sky produce internal organs? The answer lies in a phenomenon called a synchronized purge. Scientists concluded that a massive wake of vultures had gorged themselves on a rotting carcass nearby. When startled by a sudden noise, the birds took flight simultaneously. To lose weight quickly and escape, they collectively vomited their heavy, undigested meals from hundreds of feet in the air. It wasn't a miracle or a portal; it was nature\u2019s most stomach-churning logistics error.",
-    "scene_keywords": [
-      "microscopic lung tissue",
-      "Victorian scientist microscope",
-      "vultures circling sky",
-      "birds vomiting in flight",
-      "biological diagram",
-      "rotting carcass",
-      "Kentucky landscape 1800s",
-      "shocked townspeople"
-    ],
-    "topic": "The 1876 Kentucky Meat Shower"
-  }
+  "pending_part_2": null
 }
