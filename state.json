@@ -1,5 +1,5 @@
 {
-  "reel_count": 6,
+  "reel_count": 7,
   "promo_history": [
     {
       "angle_idx": 1,
@@ -49,7 +49,23 @@
     "The 1966 Westall UFO Mass Sighting",
     "The 1959 Vasarez Pass Anomaly",
     "The 1876 Kentucky Meat Shower",
-    "The 1954 Cession of the Island of San Juan de Ul\u00faa"
+    "The 1954 Cession of the Island of San Juan de Ul\u00faa",
+    "The 1989 Belgorod UFO Encounter"
   ],
-  "pending_part_2": null
+  "pending_part_2": {
+    "title": "PART 2: The Terrifying Aftermath Revealed #shorts #mystery",
+    "description": "PART 2 (FINALE): Uncovering the declassified documents of the Belgorod sphere. #shorts #viral #mystery",
+    "voiceover_script": "In Part 1, we explored the massive glowing sphere that hovered over a Soviet military base in 1989, but when investigators examined the impact site, the horrifying reality set in. Declassified documents recovered decades later revealed that the ground beneath the hovering anomaly had been instantly vitrified, turning ordinary soil into smooth, black glass across a thirty-meter radius. Radiation meters spiked off the charts, yet no radioactive isotopes were ever detected. Even more disturbing, military logs noted that all military personnel stationed at the perimeter suffered from identical, permanent memory gaps lasting exactly forty-two minutes\u2014the exact duration the sphere hovered above them. To this day, military physicists have no explanation for how raw kinetic energy could instantly melt earth without heat. What did that sphere take from their minds?",
+    "scene_keywords": [
+      "declassified soviet files stamps",
+      "black glass vitrified soil crater",
+      "radiation geiger counter spiking",
+      "military personnel looking confused",
+      "digital clock ticking backward",
+      "physicists analyzing map data",
+      "mysterious glowing sphere art",
+      "dark cinematic fading screen"
+    ],
+    "topic": "The 1989 Belgorod UFO Encounter"
+  }
 }
