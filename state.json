@@ -1,5 +1,5 @@
 {
-  "reel_count": 4,
+  "reel_count": 5,
   "promo_history": [
     {
       "angle_idx": 1,
@@ -45,20 +45,5 @@
     "The 1876 Kentucky Meat Shower",
     "The 1954 Cession of the Island of San Juan de Ul\u00faa"
   ],
-  "pending_part_2": {
-    "title": "PART 2: The Declassified Naval Secret #shorts #mystery",
-    "description": "PART 2 (FINALE): The chilling declassified truth behind the vanishing fortress. #shorts #viral #mystery",
-    "voiceover_script": "In Part 1, we explored the eerie midnight disappearance of a Mexican naval fortress... but when divers finally descended into the abyss, they discovered something terrifying. Declassified memos from the Mexican Navy reveal that divers found the missing stone bastion intact on the ocean floor, shifted over a mile away overnight without disturbing the delicate silt beneath. Even more chilling, sonar logs recorded rhythmic, metallic hammering echoing from deep inside the submerged stone rooms days after the collapse. Voice recordings from the recovery team were quietly scrubbed from public registries after divers reported hearing human breathing coming from unflooded compartments sealed for three hundred years. The government officially blamed an unprecedented underwater landslide, but structural engineers proved that explanation mathematically impossible. Something massive, unnatural, and completely unknown moved that fortress.",
-    "scene_keywords": [
-      "deep ocean scuba diver flashlight beam",
-      "submerged ancient stone wall ruins",
-      "sonar equipment pulsing abstract waves",
-      "declassified document red redaction ink",
-      "scared diver looking into darkness",
-      "underwater bubbles rising to surface",
-      "secret military folder slamming shut",
-      "cinematic dark ocean abyss view"
-    ],
-    "topic": "The 1954 Cession of the Island of San Juan de Ul\u00faa"
-  }
+  "pending_part_2": null
 }
