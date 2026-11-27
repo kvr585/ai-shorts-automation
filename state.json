@@ -1,14 +1,20 @@
 {
-  "reel_count": 5,
+  "reel_count": 6,
   "promo_history": [
     {
       "angle_idx": 1,
       "angle_name": "Angle 1 \u2014 Freshers Interview Freeze Hook",
       "hook": "POV: Your brain goes completely blank in a live Google Meet round \ud83d\ude33\ud83e\udde0",
       "timestamp": "2026-11-26 08:31:10"
+    },
+    {
+      "angle_idx": 2,
+      "angle_name": "Angle 2 \u2014 Resume + JD Personalization Demo",
+      "hook": "Generic ChatGPT answers fail technical interviews \u274c\ud83d\udcc4",
+      "timestamp": "2026-11-27 08:30:42"
     }
   ],
-  "last_promo_angle_idx": 1,
+  "last_promo_angle_idx": 2,
   "past_topics": [
     "The Subterranean Vault Anomaly",
     "The Shag Harbour UFO Incident",
