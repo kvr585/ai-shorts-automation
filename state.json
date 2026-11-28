@@ -1,5 +1,5 @@
 {
-  "reel_count": 8,
+  "reel_count": 9,
   "promo_history": [
     {
       "angle_idx": 1,
@@ -12,9 +12,15 @@
       "angle_name": "Angle 2 \u2014 Resume + JD Personalization Demo",
       "hook": "Generic ChatGPT answers fail technical interviews \u274c\ud83d\udcc4",
       "timestamp": "2026-11-27 08:30:42"
+    },
+    {
+      "angle_idx": 3,
+      "angle_name": "Angle 3 \u2014 Coding & System Design Round Assistant",
+      "hook": "When the interviewer asks for Big-O complexity live on call \u23f1\ufe0f\ud83d\udcbb",
+      "timestamp": "2026-11-28 08:30:48"
     }
   ],
-  "last_promo_angle_idx": 2,
+  "last_promo_angle_idx": 3,
   "past_topics": [
     "The Subterranean Vault Anomaly",
     "The Shag Harbour UFO Incident",
