@@ -1,5 +1,5 @@
 {
-  "reel_count": 9,
+  "reel_count": 10,
   "promo_history": [
     {
       "angle_idx": 1,
@@ -56,7 +56,23 @@
     "The 1959 Vasarez Pass Anomaly",
     "The 1876 Kentucky Meat Shower",
     "The 1954 Cession of the Island of San Juan de Ul\u00faa",
-    "The 1989 Belgorod UFO Encounter"
+    "The 1989 Belgorod UFO Encounter",
+    "The 1978 Valentia Island UFO Abduction"
   ],
-  "pending_part_2": null
+  "pending_part_2": {
+    "title": "PART 2: The Declassified Truth #shorts #mystery",
+    "description": "PART 2 (FINALE): Uncovering the declassified military files and shocking aftermath of the Valentia Island anomaly. #shorts #viral #mystery",
+    "voiceover_script": "In Part 1, we explored the terrifying night a massive glowing disc trapped an Irish fishing boat... but when military radar logs were finally declassified, the truth was far more disturbing. The Valentia Island anomaly wasn't just seen by the crew; ground radar stations tracked an unidentifiable return moving at hypersonic speeds, instantly plunging into the ocean depths before vanishing completely. When the fishermen finally docked, their watches were permanently frozen to the exact minute the craft descended. Medical examinations revealed acute radiation exposure, yet government officials swiftly classified the entire incident under national security acts. To this day, official files remain heavily redacted, leaving us to wonder what was truly waiting beneath the waves.",
+    "scene_keywords": [
+      "classified military radar screen",
+      "glowing digital ocean map",
+      "vintage mechanical watch frozen",
+      "mysterious radiation detector",
+      "redacted government documents",
+      "dark ocean depths sonar",
+      "cinematic ufo underwater",
+      "chilling unresolved mystery"
+    ],
+    "topic": "The 1978 Valentia Island UFO Abduction"
+  }
 }
